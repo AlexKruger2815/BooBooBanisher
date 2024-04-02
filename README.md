@@ -32,4 +32,5 @@ cd BooBooBanisher
 
 ## Links
 For more detailed documentation and tips, check out our [Confluence page](https://bbd-dane.atlassian.net/jira/software/projects/CLUB/boards/5/backlog).
+
 Stay up-to-date with our project progress and tasks by visiting our [Jira board](https://bbd-dane.atlassian.net/jira/software/projects/CLUB/boards/5).
