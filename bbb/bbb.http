@@ -1,0 +1,13 @@
+@bbb_HostAddress = http://localhost:8080
+
+GET {{bbb_HostAddress}}/weatherforecast/
+Accept: application/json
+
+POST {{bbb_HostAddress}}/hellopost/
+Accept: application/json
+Content-Type: application/json
+{
+    "key": "value"
+}
+
+###
