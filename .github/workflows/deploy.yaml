@@ -43,6 +43,7 @@ jobs:
         zip -r booboobanisher.zip ./publish
 
   terraform:
+    needs: compile
     runs-on: ubuntu-latest
     defaults:
       run:
