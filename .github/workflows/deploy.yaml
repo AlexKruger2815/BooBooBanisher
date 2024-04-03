@@ -8,8 +8,8 @@ on:
 
 env:
   AWS_REGION: "eu-west-1"
-  AWS_ACCESS_KEY_ID: booboobanisher_admin
-  AWS_SECRET_ACCESS_KEY: hm'87E3*
+  AWS_ACCESS_KEY_ID: "booboobanisher_admin"
+  AWS_SECRET_ACCESS_KEY: "hm'87E3*"
 
 permissions:
   id-token: write
