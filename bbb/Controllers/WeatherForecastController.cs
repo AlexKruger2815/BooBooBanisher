@@ -19,7 +19,7 @@ public class WeatherForecastController : ControllerBase
     }
 
 
-    [HttpPost(Name = "HelloPost")]
+    [HttpPost("HelloPost")]
     public IActionResult hello()
     {
         return Ok("Hello PostIt World");
