@@ -127,8 +127,8 @@ resource "aws_db_instance" "booboobanisher_rds" {
   storage_type = "gp2"
   engine = "sqlserver-ex"
   instance_class = "db.t3.micro"
-  username = jsondecode(data.aws_secretsmanager_secret_version.creds.secret_string)["username"]
-  password = jsondecode(data.aws_secretsmanager_secret_version.creds.secret_string)["password"]
+  username = "dbadmin"
+  password = "csharplevelup"
   skip_final_snapshot = true // required to destroy
   publicly_accessible= true
   identifier = "booboobanisher"
