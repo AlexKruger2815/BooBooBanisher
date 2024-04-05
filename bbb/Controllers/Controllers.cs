@@ -4,11 +4,11 @@ using Microsoft.Extensions.Configuration;
 
 namespace bbb.Controllers;
 
-private static readonly string connectionString = Configuration.GetConnectionString("DefaultConnection");
 [ApiController]
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
+    private static readonly string connectionString = "";
     [HttpPost("newuser")]
     public IActionResult newUser([FromBody] UserModel model)
     {
@@ -95,7 +95,7 @@ public class CategoryModel
 
 public class SessionModel
 {
-    public int sessionID { get; set;}
+    public int sessionID { get; set; }
     public int userID { get; set; }
-    public int messageID { get; set; } 
+    public int messageID { get; set; }
 }
