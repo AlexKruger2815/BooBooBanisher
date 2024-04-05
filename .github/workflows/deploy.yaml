@@ -75,8 +75,7 @@ jobs:
   
   Flyway:
     name: Run Flyway Migration
-    needs: compileJosephkk171011#
-    
+    needs: compile
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v3.0.0
