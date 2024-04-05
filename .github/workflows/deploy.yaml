@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ${{ github.workspace }}/bbb
+        working-directory: infrastructure
     steps:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
@@ -56,6 +56,9 @@ jobs:
             aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
             aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
             audience: sts.amazonaws.com
+
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
     - name: Check out terraform
       uses: hashicorp/setup-terraform@v3
