@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: infastructure
+        working-directory: ${{ github.workspace }}
     steps:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
