@@ -85,7 +85,7 @@ jobs:
     - name: Continuous Integration Flyway Clean Migrate
       run: >-
         docker run --rm
-        --volume ${{ github.workspace }}/Databases/migrations:/flyway/sql:ro
+        --volume ${{ github.workspace }}/migrations:/flyway/sql:ro
         redgate/flyway
         -url="jdbc:postgresql://booboobanisher-db.cidtxn2ndtwc.eu-west-1.rds.amazonaws.com:5432/bbbdb"
         -user="dbadmin"
