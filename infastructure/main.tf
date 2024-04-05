@@ -173,7 +173,7 @@ resource "aws_elastic_beanstalk_environment" "BooBooBanisher-elastic-beanstalk-e
   }
 
   setting {
-    namespace = "aws:ec2:vpc"Z
+    namespace = "aws:ec2:vpc"
     name      = "ELBSubnets"
     value     = "${aws_subnet.subnet1.id},${aws_subnet.subnet2.id}"
   }

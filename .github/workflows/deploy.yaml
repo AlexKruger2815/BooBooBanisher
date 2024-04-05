@@ -1,4 +1,4 @@
-name: Deploy to AWS Elastic Beanstalk
+name: Deploy to AWS Elastic Beanstalk and terraform and flyways
 
 on:
   push:
@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ../infrastructure
+        working-directory: ${{ github.workspace }}/infrastructure
     steps:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
