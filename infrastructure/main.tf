@@ -122,7 +122,7 @@ resource "aws_db_subnet_group" "sql_subnet_group" {
     }
 }
 
-resource "aws_db_instance" "BooBooBanisher-rds" {
+resource "aws_db_instance" "BooBooBanisher_rds" {
   allocated_storage = 20
   storage_type = "gp2"
   engine = "sqlserver-ex"
@@ -137,14 +137,14 @@ resource "aws_db_instance" "BooBooBanisher-rds" {
   vpc_security_group_ids = [aws_security_group.database_sg.id]
 }
 
-resource "aws_elastic_beanstalk_application" "BooBooBanisher-beanstalk-app" {
+resource "aws_elastic_beanstalk_application" "BooBooBanisher_beanstalk_app" {
   name        = "BooBooBanisher-application"
   description = "beanstalk-application for BooBooBanisher"
 }
 
 resource "aws_elastic_beanstalk_environment" "BooBooBanisher-elastic-beanstalk-env" {
   name                = "BooBooBanisher-beanstalk-env"
-  application         = aws_elastic_beanstalk_application.BooBooBanisher-beanstalk-app.name
+  application         = aws_elastic_beanstalk_application.BooBooBanisher_beanstalk_app.name
   solution_stack_name = "64bit Amazon Linux 2023 v4.2.1 running Corretto 21"
   cname_prefix        = "booboobanisher"
 
