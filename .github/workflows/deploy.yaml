@@ -87,6 +87,6 @@ jobs:
         docker run --rm
         --volume ${{ github.workspace }}/migrations:/flyway/sql:ro
         redgate/flyway
-        -url="jdbc:postgresql://booboobanisher-db.cidtxn2ndtwc.eu-west-1.rds.amazonaws.com:5432/booboobanisher-db"
+        -url="jdbc:postgresql://booboobanisher-db.cidtxn2ndtwc.eu-west-1.rds.amazonaws.com:5432/bbbdb"
         -user="dbadmin"
         -password=${{ secrets.DB_PASSWORD }} migrate
