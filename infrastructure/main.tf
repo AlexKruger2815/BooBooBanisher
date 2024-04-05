@@ -1,5 +1,5 @@
 # Create a VPC
-resource "aws_vpc" "BooBooBanisher_vpc" {
+resource "aws_vpc" "booboobanisher_vpc" {
   cidr_block = var.VPC_CIDR
   enable_dns_support = true
   enable_dns_hostnames = true
@@ -7,12 +7,12 @@ resource "aws_vpc" "BooBooBanisher_vpc" {
 
 #Internet gateway
 resource "aws_internet_gateway" "gw" {
-  vpc_id = aws_vpc.BooBooBanisher_vpc.id
+  vpc_id = aws_vpc.booboobanisher_vpc.id
 }
 
 #Route table
 resource "aws_route_table" "route_table" {
-  vpc_id = aws_vpc.BooBooBanisher_vpc.id
+  vpc_id = aws_vpc.booboobanisher_vpc.id
 
   route {
     cidr_block = "0.0.0.0/0"
@@ -22,13 +22,13 @@ resource "aws_route_table" "route_table" {
 
 # Create Subnets
 resource "aws_subnet" "subnet1" {
-  vpc_id     = aws_vpc.BooBooBanisher_vpc.id
+  vpc_id     = aws_vpc.booboobanisher_vpc.id
   cidr_block = var.PUB_SUB1_CIDR
   availability_zone = var.ZONE1
 }
 
 resource "aws_subnet" "subnet2" {
-  vpc_id     = aws_vpc.BooBooBanisher_vpc.id
+  vpc_id     = aws_vpc.booboobanisher_vpc.id
   cidr_block = var.PUB_SUB2_CIDR
   availability_zone = var.ZONE2
 }
@@ -62,14 +62,14 @@ resource "aws_security_group" "database_sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  vpc_id = aws_vpc.BooBooBanisher_vpc.id
+  vpc_id = aws_vpc.booboobanisher_vpc.id
 }
 
 # Elastic beanstalk security group
-resource "aws_security_group" "BooBooBanisher-sg" {
+resource "aws_security_group" "booboobanisher-sg" {
   name        = "webserver_sg"
   description = "Allow inbound SSH and HTTP traffic"
-  vpc_id      = aws_vpc.BooBooBanisher_vpc.id
+  vpc_id      = aws_vpc.booboobanisher_vpc.id
 
   ingress {
     from_port   = 22
@@ -122,7 +122,7 @@ resource "aws_db_subnet_group" "sql_subnet_group" {
     }
 }
 
-resource "aws_db_instance" "BooBooBanisher_rds" {
+resource "aws_db_instance" "booboobanisher_rds" {
   allocated_storage = 20
   storage_type = "gp2"
   engine = "sqlserver-ex"
@@ -131,27 +131,27 @@ resource "aws_db_instance" "BooBooBanisher_rds" {
   password = jsondecode(data.aws_secretsmanager_secret_version.creds.secret_string)["password"]
   skip_final_snapshot = true // required to destroy
   publicly_accessible= true
-  identifier = "BooBooBanisher"
+  identifier = "booboobanisher"
   multi_az = false
   db_subnet_group_name = aws_db_subnet_group.sql_subnet_group.name
   vpc_security_group_ids = [aws_security_group.database_sg.id]
 }
 
-resource "aws_elastic_beanstalk_application" "BooBooBanisher_beanstalk_app" {
-  name        = "BooBooBanisher-application"
-  description = "beanstalk-application for BooBooBanisher"
+resource "aws_elastic_beanstalk_application" "booboobanisher_beanstalk_app" {
+  name        = "booboobanisher-application"
+  description = "beanstalk-application for booboobanisher"
 }
 
-resource "aws_elastic_beanstalk_environment" "BooBooBanisher-elastic-beanstalk-env" {
-  name                = "BooBooBanisher-beanstalk-env"
-  application         = aws_elastic_beanstalk_application.BooBooBanisher_beanstalk_app.name
+resource "aws_elastic_beanstalk_environment" "booboobanisher-elastic-beanstalk-env" {
+  name                = "booboobanisher-beanstalk-env"
+  application         = aws_elastic_beanstalk_application.booboobanisher_beanstalk_app.name
   solution_stack_name = "64bit Amazon Linux 2023 v4.2.1 running Corretto 21"
   cname_prefix        = "booboobanisher"
 
   setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
-    value     = aws_vpc.BooBooBanisher_vpc.id
+    value     = aws_vpc.booboobanisher_vpc.id
   }
 
   setting {
@@ -181,7 +181,7 @@ resource "aws_elastic_beanstalk_environment" "BooBooBanisher-elastic-beanstalk-e
   setting {
     namespace = "aws:elbv2:loadbalancer"
     name      = "SecurityGroups"
-    value     = aws_security_group.BooBooBanisher-sg.id
+    value     = aws_security_group.booboobanisher-sg.id
   }
 
   setting {
@@ -202,5 +202,5 @@ resource "aws_elastic_beanstalk_environment" "BooBooBanisher-elastic-beanstalk-e
     value     = "200"
   }
 
-  depends_on = [aws_security_group.BooBooBanisher-sg, aws_security_group.database_sg]
+  depends_on = [aws_security_group.booboobanisher-sg, aws_security_group.database_sg]
 }
