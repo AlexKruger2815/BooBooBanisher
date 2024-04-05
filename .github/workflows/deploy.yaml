@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ${{ github.workspace }}/infrastructure
+        working-directory: infastructure
     steps:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
@@ -73,17 +73,17 @@ jobs:
     - name: Deploy to Elastic Beanstalk
       run: eb deploy your-environment-name
   
-  Flyway:
-    name: Run Flyway Migration
-    needs: compile
-    runs-on: ubuntu-20.04
-    steps:
-    - uses: actions/checkout@v3.0.0
-    - name: Continuous Integration Flyway Clean Migrate
-      run: >-
-        docker run --rm
-        --volume ${{ github.workspace }}/migrations:/flyway/sql:ro
-        redgate/flyway
-        -url="jdbc:postgresql://booboobanisher-db.cidtxn2ndtwc.eu-west-1.rds.amazonaws.com:5432/booboobanisher-db"
-        -user="dbadmin"
-        -password="csharplevelup" migrate
+  # Flyway:
+  #   name: Run Flyway Migration
+  #   needs: compile
+  #   runs-on: ubuntu-20.04
+  #   steps:
+  #   - uses: actions/checkout@v3.0.0
+  #   - name: Continuous Integration Flyway Clean Migrate
+  #     run: >-
+  #       docker run --rm
+  #       --volume ${{ github.workspace }}/migrations:/flyway/sql:ro
+  #       redgate/flyway
+  #       -url="jdbc:postgresql://booboobanisher-db.cidtxn2ndtwc.eu-west-1.rds.amazonaws.com:5432/booboobanisher-db"
+  #       -user="dbadmin"
+  #       -password="csharplevelup" migrate
