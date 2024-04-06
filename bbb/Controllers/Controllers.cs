@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Dapper;
+using Npgsql;
+using System.Data;
+
 
 namespace bbb.Controllers;
 
@@ -8,12 +11,39 @@ namespace bbb.Controllers;
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
-    private static readonly string connectionString = "";
+    readonly string? db = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .Build().GetConnectionString("DefaultConnection");
+    private DAO dao = new DAO();
     [HttpPost("newuser")]
     public IActionResult newUser([FromBody] UserModel model)
     {
-        System.Console.WriteLine(Url.Link("getUser", null));
+        string sql = "INSERT into public.users(username) VALUES (@Username)";
         System.Console.WriteLine($"UserModel value: {model} = {model.userID}, {model.username} ");
+        System.Console.WriteLine(db + " with " + sql);
+        using (IDbConnection connection = new NpgsqlConnection(db))
+        {
+            try
+            {
+                // Open the connection
+                connection.Open();
+                var cmd = new NpgsqlCommand(sql, (NpgsqlConnection?)connection);
+                cmd.Parameters.AddWithValue("username", model.username);
+                System.Console.WriteLine(cmd.CommandText);
+                var response = cmd.ExecuteNonQuery();
+                Console.WriteLine($"{response} response.");
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions 
+                return BadRequest("Error: " + ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+        }
         // user received well, add to db
         return Ok($"UserModel value: {model} = {model.userID}, {model.username} ");
     }
@@ -21,9 +51,20 @@ public class UserController : ControllerBase
     [HttpGet(Name = "getUser")]
     public IActionResult getUser(string username)
     {
-        System.Console.WriteLine("getuser: " + username);
-        int id = -1;
-        return Ok(new UserModel(username, id));
+        {
+            string sql = $"select * from public.users where username = \'" + username + "\'";
+            System.Console.WriteLine(db + " with " + sql);
+            try
+            {
+                var resp = dao.getUser("where username = \'" + username + "\'");
+                return Ok(resp);
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions 
+                return BadRequest("Error: " + ex.Message);
+            }
+        }
     }
 }
 
@@ -31,16 +72,29 @@ public class UserController : ControllerBase
 [Route("[controller]")]
 public class MessageController : ControllerBase
 {
+    private DAO dao = new DAO();
+    readonly string? db = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .Build().GetConnectionString("DefaultConnection");
     [HttpGet("")]
     public IActionResult getAllMessage(int status)
     {
+
         return Ok($"Get Msg: {status}");
     }
 
     [HttpGet("all")]
     public IActionResult getAllMessage()
     {
-        return Ok($"return all messages");
+        try
+        {
+            var resp = dao.getMessage();
+            return Ok(resp);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }
 
@@ -64,6 +118,40 @@ public class SessionController : ControllerBase
     {
         DateTime currentDateTime = DateTime.Now;
         return Ok($"new session model: {model.messageID} {model.userID} {model.sessionID} => {currentDateTime}");
+    }
+}
+
+public class DAO
+{
+    readonly string? db = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .Build().GetConnectionString("DefaultConnection");
+    public IEnumerable<MessageModel> getMessage(string filter = "")
+    {
+        string sql = $"select * from public.messages" + filter;
+        System.Console.WriteLine($"msg DAO: {filter}");
+        using (IDbConnection connection = new NpgsqlConnection(db))
+        {
+            // Open the connection
+            connection.Open();
+            var response = connection.Query<MessageModel>(sql);
+            System.Console.WriteLine(response);
+            return response;
+        }
+    }
+    public IEnumerable<UserModel> getUser(string filter = "")
+    {
+        string sql = "select * from public.users " + filter;
+        System.Console.WriteLine("user dao: " + sql);
+        using (IDbConnection connection = new NpgsqlConnection(db))
+        {
+            // Open the connection
+            connection.Open();
+            var response = connection.Query<UserModel>(sql);
+            System.Console.WriteLine(response);
+            return response;
+        }
+        return null;
     }
 }
 public class UserModel
