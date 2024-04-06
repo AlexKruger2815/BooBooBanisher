@@ -1,40 +1,41 @@
-using bbb.Models;
-using Npgsql;
-using Microsoft.AspNetCore.Mvc;
-using Dapper;
 using System.Data;
+using bbb.Models;
+using Dapper;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Npgsql;
 
 namespace bbb.DAO;
 
-public class UserDAO
+public class CategoryDAO
 {
 
     readonly string? db = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .Build().GetConnectionString("DefaultConnection");
-    public IEnumerable<UserModel> getUser(string filter = "")
+    public IEnumerable<CategoryModel> getUser(string filter = "")
     {
-        string sql = "select * from public.users " + filter;
-        System.Console.WriteLine("user dao: " + sql);
+        string sql = "select * from public.messagecategory " + filter;
+        System.Console.WriteLine("category dao: " + sql);
         using (IDbConnection connection = new NpgsqlConnection(db))
         {
             // Open the connection
             connection.Open();
-            var response = connection.Query<UserModel>(sql);
+            var response = connection.Query<CategoryModel>(sql);
             System.Console.WriteLine(response);
             return response;
         }
         return null;
     }
-    public int postUser(UserModel model)
+    public int post(CategoryModel model)
     {
-        string sql = "INSERT into public.users(username) VALUES (@Username)";
+        string sql = "INSERT into public.messagecategory(messagecategoryid, messagecategorytype) VALUES (@id, @type)";
         using (IDbConnection connection = new NpgsqlConnection(db))
         {
             // Open the connection
             connection.Open();
             var cmd = new NpgsqlCommand(sql, (NpgsqlConnection?)connection);
-            cmd.Parameters.AddWithValue("username", model.username);
+            cmd.Parameters.AddWithValue("type", model.categoryType);
+            cmd.Parameters.AddWithValue("id", model.categoryID);
             System.Console.WriteLine(cmd.CommandText);
             var response = cmd.ExecuteNonQuery();
             Console.WriteLine($"{response} rows affected.");
@@ -43,5 +44,4 @@ public class UserDAO
         }
 
     }
-
 }

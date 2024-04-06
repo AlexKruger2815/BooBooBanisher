@@ -19,32 +19,18 @@ public class UserController : ControllerBase
     [HttpPost("newuser")]
     public IActionResult newUser([FromBody] UserModel model)
     {
-        string sql = "INSERT into public.users(username) VALUES (@Username)";
-        System.Console.WriteLine($"UserModel value: {model} = {model.userID}, {model.username} ");
-        System.Console.WriteLine(db + " with " + sql);
-        using (IDbConnection connection = new NpgsqlConnection(db))
+        System.Console.WriteLine($"UserModel value: {model} = {model.userID}, {model.username} "); 
+        try
         {
-            try
-            {
-                // Open the connection
-                connection.Open();
-                var cmd = new NpgsqlCommand(sql, (NpgsqlConnection?)connection);
-                cmd.Parameters.AddWithValue("username", model.username);
-                System.Console.WriteLine(cmd.CommandText);
-                var response = cmd.ExecuteNonQuery();
-                Console.WriteLine($"{response} response.");
-            }
-            catch (Exception ex)
-            {
-                // Handle any exceptions 
-                return BadRequest("Error: " + ex.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
-
+            dao.postUser(model);
         }
+        catch (Exception ex)
+        {
+            // Handle any exceptions 
+            return BadRequest("Error: " + ex.Message);
+        }
+
+
         // user received well, add to db
         return Ok($"UserModel value: {model} = {model.userID}, {model.username} ");
     }
