@@ -11,7 +11,7 @@ dependency "vpc" {
 
   mock_outputs_allowed_terraform_commands = ["validate", "plan"]
   mock_outputs = {
-      private_subnets = ["subnet-01", "subnet-02"]
+      public_subnets = ["subnet-01", "subnet-02"]
   }
 }
 
@@ -38,7 +38,7 @@ inputs = {
 
   # DB subnet group
   create_db_subnet_group = true
-  subnet_ids             = dependency.vpc.outputs.private_subnets
+  subnet_ids             = dependency.vpc.outputs.public_subnets
 
   # DB parameter group
   family = "postgres16"

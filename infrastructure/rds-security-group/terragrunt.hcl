@@ -21,5 +21,5 @@ dependency "vpc" {
 inputs = {
     name = "rds-security-group"
     vpc_id = dependency.vpc.outputs.vpc_id
-    ingress_cidr_blocks  = [dependency.vpc.outputs.vpc_cidr_block]
+    ingress_cidr_blocks  = ["0.0.0.0/0"] #[dependency.vpc.outputs.vpc_cidr_block]
 }
