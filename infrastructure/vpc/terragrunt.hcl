@@ -13,7 +13,7 @@ inputs = {
     azs = ["eu-west-1a", "eu-west-1b"]
 
 
-    public_subnets = ["10.0.0.0/25"]
+    public_subnets = ["10.0.0.0/26", "10.0.0.64/26"]
     public_subnet_suffix = "public"
     
     private_subnets = ["10.0.0.128/26", "10.0.0.192/26"]
