@@ -20,18 +20,25 @@ public class CategoryController : ControllerBase
     {
         return Ok($"all categories");
     }
-    
+
     [HttpPost("")]
     public IActionResult insertCategory([FromBody] CategoryModel model)
     {
-        try
+        if (model.categoryType is not string || model.categoryType == null || model.categoryID  <= 0)
         {
-            var resp = dao.post(model);
-            return Ok(resp + " rows affected");
+            return BadRequest("Invalid entity inputs");
         }
-        catch (Exception ex)
+        else
         {
-            return BadRequest(ex.Message);
+            try
+            {
+                var resp = dao.post(model);
+                return Ok(resp + " rows affected");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

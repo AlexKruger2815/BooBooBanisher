@@ -19,18 +19,23 @@ public class UserController : ControllerBase
     [HttpPost("newuser")]
     public IActionResult newUser([FromBody] UserModel model)
     {
-        System.Console.WriteLine($"UserModel value: {model} = {model.userID}, {model.username} "); 
-        try
+        System.Console.WriteLine($"UserModel value: {model} = {model.userID}, {model.username} ");
+        if (model.username is not string || model.username == null)
         {
-            dao.postUser(model);
+            return BadRequest("Ivalid UserModel entity");
         }
-        catch (Exception ex)
+        else
         {
-            // Handle any exceptions 
-            return BadRequest("Error: " + ex.Message);
+            try
+            {
+                dao.postUser(model);
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions 
+                return BadRequest("Error: " + ex.Message);
+            }
         }
-
-
         // user received well, add to db
         return Ok($"UserModel value: {model} = {model.userID}, {model.username} ");
     }
