@@ -19,8 +19,8 @@ public class MessageController : ControllerBase
     [HttpGet("")]
     public IActionResult getAllMessage(int status)
     {
-
-        return Ok($"Get Msg: {status}");
+        var resp = dao.getMessage();
+        return Ok(resp);
     }
 
     [HttpGet("all")]
