@@ -62,26 +62,30 @@ public class UserController : ControllerBase
     [HttpGet("getNewUser")]
     public IActionResult getNewUser(string token)
     {
-        var response = getUsername(token);
-        JsonDocument el = JsonDocument.Parse(response.Result);
-        var username = el.RootElement.GetProperty("login").GetString();
-        System.Console.WriteLine("username Valeu " + username);
         try
         {
-            var user = new UserModel(username);
-            dao.postUser(user);
-        }
-        catch (Exception e)
-        {
-            if (e.Message.Contains("duplicate key value violates unique constraint \"unique_username\""))
+            var response = getUsername(token);
+            JsonDocument el = JsonDocument.Parse(response.Result);
+            var username = el.RootElement.GetProperty("login").GetString();
+            System.Console.WriteLine("username Valeu " + username);
+            try
             {
-                return Ok(dao.getUser(" where username = \'" + username + "\'"));
+                var user = new UserModel(username);
+                dao.postUser(user);
             }
-            else
-                return BadRequest(e.Message);
+            catch (Exception e)
+            {
+                if (e.Message.Contains("duplicate key value violates unique constraint \"unique_username\""))
+                {
+                    return Ok(dao.getUser(" where username = \'" + username + "\'"));
+                }
+                else
+                    return BadRequest(e.Message);
+            }
+            //receive the token from frontend, get username directly from github
+            return Ok(dao.getUser(" where username = \'" + username + "\'"));
         }
-        //receive the token from frontend, get username directly from github
-        return Ok(dao.getUser(" where username = \'" + username + "\'"));
+        catch (Exception ex) { return BadRequest($"Bad token request: {ex.Message}"); }
     }
     private async Task<string?> getUsername(string token)
     {
