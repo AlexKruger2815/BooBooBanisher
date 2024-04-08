@@ -1,7 +1,5 @@
 using bbb.Models;
 using Npgsql;
-using Microsoft.AspNetCore.Mvc;
-using Dapper;
 using System.Data;
 
 namespace bbb.DAO;

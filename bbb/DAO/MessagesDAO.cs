@@ -12,8 +12,8 @@ public class MessageDAO
             .Build().GetConnectionString("DefaultConnection");
     public IEnumerable<MessageModel> getMessage(string filter = "")
     {
-        string sql = $"select * from public.messages" + filter;
-        System.Console.WriteLine($"msg DAO: {filter}");
+        string sql = $"select messageid, messagecategoryid as categoryid, messagecontent as content from public.messages " + filter;
+        System.Console.WriteLine($"msg DAO: {sql}");
         using (IDbConnection connection = new NpgsqlConnection(db))
         {
             // Open the connection

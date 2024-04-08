@@ -12,7 +12,7 @@ public class CategoryDAO
     readonly string? db = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .Build().GetConnectionString("DefaultConnection");
-    public IEnumerable<CategoryModel> getUser(string filter = "")
+    public IEnumerable<CategoryModel> GetCategories(string filter = "")
     {
         string sql = "select * from public.messagecategory " + filter;
         System.Console.WriteLine("category dao: " + sql);

@@ -10,6 +10,7 @@ namespace bbb.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+//localhost/User/
 public class UserController : ControllerBase
 {
     readonly string? db = new ConfigurationBuilder()
@@ -17,6 +18,7 @@ public class UserController : ControllerBase
             .Build().GetConnectionString("DefaultConnection");
     private UserDAO dao = new UserDAO();
     [HttpPost("newuser")]
+    //localhost/user/newuser
     public IActionResult newUser([FromBody] UserModel model)
     {
         System.Console.WriteLine($"UserModel value: {model} = {model.userID}, {model.username} ");
@@ -43,19 +45,23 @@ public class UserController : ControllerBase
     [HttpGet(Name = "getUser")]
     public IActionResult getUser(string username)
     {
+        //receive the token from frontend, get username directly from github
+        string sql = $"select * from public.users where username = \'" + username + "\'";
+        System.Console.WriteLine(db + " with " + sql);
+        try
         {
-            string sql = $"select * from public.users where username = \'" + username + "\'";
-            System.Console.WriteLine(db + " with " + sql);
-            try
-            {
-                var resp = dao.getUser("where username = \'" + username + "\'");
-                return Ok(resp);
-            }
-            catch (Exception ex)
-            {
-                // Handle any exceptions 
-                return BadRequest("Error: " + ex.Message);
-            }
+            var resp = dao.getUser("where username = \'" + username + "\'");
+            return Ok(resp);
         }
+        catch (Exception ex)
+        {
+            // Handle any exceptions 
+            return BadRequest("Error: " + ex.Message);
+        }
+    }
+
+    public IActionResult getNewUser()
+    {
+        return Ok("new user succesful");
     }
 }
