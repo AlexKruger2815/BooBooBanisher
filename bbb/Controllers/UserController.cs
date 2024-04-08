@@ -10,9 +10,6 @@ namespace bbb.Controllers;
 //localhost/User/
 public class UserController : ControllerBase
 {
-    readonly string? db = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .Build().GetConnectionString("DefaultConnection");
     private UserDAO dao = new UserDAO();
     [HttpPost("")]
     //localhost/user/newuser
@@ -43,7 +40,7 @@ public class UserController : ControllerBase
     public IActionResult getUser(string username)
     {
         string sql = $"select * from public.users where username = \'" + username + "\'";
-        System.Console.WriteLine(db + " with " + sql);
+        System.Console.WriteLine(" with " + sql);
         try
         {
             var resp = dao.getUser("where username = \'" + username + "\'");
@@ -56,28 +53,30 @@ public class UserController : ControllerBase
         }
     }
 
-    private const string ClientId = "Iv1.9fb0839220db756c";
-    private const string ClientSecret = "2f802c9ccc0f95543b1a2ad398fca5613d349fe4";
-
     [HttpGet("getNewUser")]
     public IActionResult getNewUser(string token)
     {
         try
         {
             var response = getUsername(token);
-            JsonDocument el = JsonDocument.Parse(response.Result);
+            JsonDocument el = JsonDocument.Parse(response.Result!);
             var username = el.RootElement.GetProperty("login").GetString();
             System.Console.WriteLine("username Valeu " + username);
             try
             {
-                var user = new UserModel(username);
-                dao.postUser(user);
+                var user = new UserModel(username!);
+                int ans = dao.postUser(user);
+                if (ans == -1)
+                {
+                    return BadRequest("Illegal Values");
+                }
             }
             catch (Exception e)
             {
                 if (e.Message.Contains("duplicate key value violates unique constraint \"unique_username\""))
                 {
                     return Ok(dao.getUser(" where username = \'" + username + "\'"));
+                    // return Forbid()
                 }
                 else
                     return BadRequest(e.Message);

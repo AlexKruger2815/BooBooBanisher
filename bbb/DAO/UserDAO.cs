@@ -24,10 +24,13 @@ public class UserDAO
             System.Console.WriteLine(response);
             return response;
         }
-        return null;
     }
     public int postUser(UserModel model)
     {
+        if (model.username is not string || model.username == null || model.username =="#")
+        {
+            return -1;
+        }
         string sql = "INSERT into public.users(username) VALUES (@Username)";
         using (IDbConnection connection = new NpgsqlConnection(db))
         {
