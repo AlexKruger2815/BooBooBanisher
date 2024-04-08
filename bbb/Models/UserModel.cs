@@ -4,7 +4,7 @@ public class UserModel
     public UserModel()
     {
     }
-    public UserModel(string name, int id)
+    public UserModel(string name, int id=1)
     {
         username = name;
         userID = id;
