@@ -2,7 +2,7 @@ name: 'Push the Docker image to AWS ECR Repo'
 on:
     push:
       branches:
-        - main
+        - alex/cicd
 jobs:
     Build:
       name: Build
