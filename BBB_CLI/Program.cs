@@ -30,8 +30,8 @@ catch
 var startInfo = new ProcessStartInfo
 {
     WindowStyle = ProcessWindowStyle.Hidden,
-    FileName = args[0],
-    Arguments = string.Join(" ",args[1..]),
+    FileName = "cmd.exe",
+    Arguments = $"/C dotnet build \"{args[0]}\"",
     UseShellExecute = false,
     RedirectStandardError = true,
     RedirectStandardOutput = true,
