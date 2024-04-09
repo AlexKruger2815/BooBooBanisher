@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using bbb.Models;
 using bbb.DAO;
 using System.Text.Json;
-
+using bbb.Helpers;
 namespace bbb.Controllers;
 
 [ApiController]
@@ -15,6 +15,9 @@ public class UserController : ControllerBase
     //localhost/user/newuser
     public IActionResult newUser([FromBody] UserModel model)
     {
+        if(!Helper.CheckToken(HttpContext.Request.Headers)){
+            return BadRequest("Invalid Token");
+        }
         System.Console.WriteLine($"UserModel value: {model} = {model.userID}, {model.username} ");
         if (model.username is not string || model.username == null)
         {
@@ -39,6 +42,9 @@ public class UserController : ControllerBase
     [HttpGet(Name = "getUser")]
     public IActionResult getUser(string username)
     {
+        if(!Helper.CheckToken(HttpContext.Request.Headers)){
+            return BadRequest("Invalid Token");
+        }
         string sql = $"select * from public.users where username = \'" + username + "\'";
         System.Console.WriteLine(" with " + sql);
         try

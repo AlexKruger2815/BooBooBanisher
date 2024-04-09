@@ -1,11 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Dapper;
-using Npgsql;
-using System.Data;
 using bbb.Models;
 using bbb.DAO;
-using Microsoft.AspNetCore.Authentication.OAuth;
+using bbb.Helpers;
 namespace bbb.Controllers;
 
 
@@ -18,10 +14,19 @@ public class SessionController : ControllerBase
     [HttpPost("")]
     public IActionResult newSession([FromBody] SessionModel model)
     {
-        if (model.messageID <= 0 || model.userID <= 0)
+        if (!Helper.CheckToken(HttpContext.Request.Headers))
         {
-            return BadRequest("Invalid SessionModel Entity");
+            return BadRequest("Invalid Token");
         }
+        else if (model.messageID <= 0)
+        {
+            return BadRequest("Invalid MessageID");
+        }
+        else if (model.userID <= 0)
+        {
+            return BadRequest("Invalid UserID");
+        }
+        // checkToken(tokenbearer);
         DateTime currentDateTime = DateTime.Now;
         try
         {
@@ -34,4 +39,23 @@ public class SessionController : ControllerBase
         }
         return Ok($"new session model: {model.messageID} {model.userID} {model.sessionID} => {currentDateTime}");
     }
+
+    //GET http://localhost:8080/session parameter (userID)
+    [HttpGet("")]
+    public IActionResult getAllSessions(int userID)
+    {
+        string query = "where userid = " + userID;
+
+        try
+        {
+            return Ok(dao.getSessions(query).ToList());
+        }
+        catch (System.Exception)
+        {
+
+            throw;
+        }
+
+    }
+
 }

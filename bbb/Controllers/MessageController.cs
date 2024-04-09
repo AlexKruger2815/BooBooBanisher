@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using bbb.Models;
 using bbb.DAO;
+using bbb.Helpers;
 
 namespace bbb.Controllers;
 
@@ -16,6 +16,9 @@ public class MessageController : ControllerBase
     [HttpGet("all")]
     public IActionResult getAllMessage(int status)
     {
+        if(!Helper.CheckToken(HttpContext.Request.Headers)){
+            return BadRequest("Invalid Token");
+        }
         var resp = dao.getMessage();
         return Ok(resp);
     }
@@ -23,6 +26,9 @@ public class MessageController : ControllerBase
     [HttpGet("error")]
     public IActionResult getErrorMessage(int userID)
     {
+        if(!Helper.CheckToken(HttpContext.Request.Headers)){
+            return BadRequest("Invalid Token");
+        }
         try
         {
             //give you a random message
@@ -34,7 +40,7 @@ public class MessageController : ControllerBase
             MessageModel model = respList[new Random().Next(respList.Count)];
             createSession(userID, model.messageID);
             System.Console.WriteLine($"new model {model.messageID}, {model.categoryID}, {model.content}");
-            return Ok(model);
+            return Ok(model.content);
         }
         catch (Exception ex)
         {
@@ -45,6 +51,9 @@ public class MessageController : ControllerBase
     [HttpGet("success")]
     public IActionResult getSuccessfulMessage(int userID)
     {
+        if(!Helper.CheckToken(HttpContext.Request.Headers)){
+            return BadRequest("Invalid Token");
+        }
         try
         {
             //give you a random message
@@ -54,7 +63,7 @@ public class MessageController : ControllerBase
             var respList = resp.ToList();
             MessageModel model = respList[new Random().Next(respList.Count)]; 
             createSession(userID, model.messageID);
-            return Ok(model);
+            return Ok(model.content);
         }
         catch (Exception ex)
         {

@@ -1,11 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Dapper;
-using Npgsql;
-using System.Data;
 using bbb.Models;
 using bbb.DAO;
-using Microsoft.VisualBasic;
+using bbb.Helpers;
 
 namespace bbb.Controllers;
 
@@ -18,13 +14,22 @@ public class CategoryController : ControllerBase
     [HttpGet("")]
     public IActionResult getCategories()
     {
+        if (!Helper.CheckToken(HttpContext.Request.Headers))
+        {
+            return BadRequest("Invalid Token");
+        }
+        dao.GetCategories();
         return Ok($"all categories");
     }
 
     [HttpPost("")]
     public IActionResult insertCategory([FromBody] CategoryModel model)
     {
-        if (model.categoryType is not string || model.categoryType == null || model.categoryID  <= 0)
+        if (!Helper.CheckToken(HttpContext.Request.Headers))
+        {
+            return BadRequest("Invalid Token");
+        }
+        if (model.categoryType is not string || model.categoryType == null || model.categoryID <= 0)
         {
             return BadRequest("Invalid entity inputs");
         }

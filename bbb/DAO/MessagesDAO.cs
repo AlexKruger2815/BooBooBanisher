@@ -1,7 +1,5 @@
 using bbb.Models;
 using Npgsql;
-using Microsoft.AspNetCore.Mvc;
-using Dapper;
 using System.Data;
 
 namespace bbb.DAO;
@@ -14,13 +12,26 @@ public class MessageDAO
     {
         string sql = $"select messageid, messagecategoryid as categoryid, messagecontent as content from public.messages " + filter;
         System.Console.WriteLine($"msg DAO: {sql}");
-        using (IDbConnection connection = new NpgsqlConnection(db))
+        using (NpgsqlConnection connection = new NpgsqlConnection(db))
         {
-            // Open the connection
-            connection.Open();
-            var response = connection.Query<MessageModel>(sql);
-            System.Console.WriteLine(response);
-            return response;
+            using (var command = new NpgsqlCommand(sql, connection))
+            {
+                // Open the connection
+                connection.Open();
+                NpgsqlDataReader reader = command.ExecuteReader();
+                List<MessageModel> messages = new List<MessageModel>();
+                while (reader.Read())
+                {
+                    var model = new MessageModel();
+                    model.categoryID = reader.GetInt32(1);
+                    model.content = reader.GetString(2);
+                    System.Console.WriteLine(model);
+                    messages.Add(model);
+                }
+                reader.Close();
+                System.Console.WriteLine("size "+messages.Count());
+                return messages;
+            }
         }
     }
 }

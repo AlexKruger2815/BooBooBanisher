@@ -1,7 +1,5 @@
 using System.Data;
 using bbb.Models;
-using Dapper;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Npgsql;
 
 namespace bbb.DAO;
@@ -16,13 +14,26 @@ public class CategoryDAO
     {
         string sql = "select * from public.messagecategory " + filter;
         System.Console.WriteLine("category dao: " + sql);
-        using (IDbConnection connection = new NpgsqlConnection(db))
+
+        using (NpgsqlConnection connection = new NpgsqlConnection(db))
         {
-            // Open the connection
-            connection.Open();
-            var response = connection.Query<CategoryModel>(sql);
-            System.Console.WriteLine(response);
-            return response;
+            using (var command = new NpgsqlCommand(sql, connection))
+            {
+                // Open the connection
+                connection.Open();
+                NpgsqlDataReader reader = command.ExecuteReader();
+                List<CategoryModel> categories = new List<CategoryModel>();
+                while (reader.Read())
+                {
+                    CategoryModel model = new CategoryModel();
+                    model.categoryType = reader.GetString(1);
+                    categories.Add(model);
+                    System.Console.WriteLine(model);
+                }
+                reader.Close();
+                System.Console.WriteLine(categories.Count);
+                return categories;
+            }
         }
         return null;
     }
