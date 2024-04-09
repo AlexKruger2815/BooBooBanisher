@@ -1,0 +1,4 @@
+dotnet new webapi --use-controllers -o bbb
+cd bbb
+dotnet add package Microsoft.EntityFrameworkCore.InMemory
+code ..

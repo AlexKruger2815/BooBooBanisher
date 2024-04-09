@@ -1,0 +1,92 @@
+name: Deploy to AWS Elastic Beanstalk and terraform 
+
+on:
+  push:
+    branches:
+      - main
+      - joseph/prerelease
+
+env:
+  AWS_REGION: "eu-west-1"
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: bbb
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.0.x'
+    
+    # - name: Build
+    #   run: dotnet build --configuration Release
+
+    # - name: Publish
+    #   run: dotnet publish -c Release -o ./publish
+    
+    - name: Build and Publish
+      run: |
+        dotnet build --configuration Release
+        dotnet publish --configuration Release -o ./publish
+        zip -r booboobanisher.zip ./publish
+
+  # terraform:
+  #   needs: compile
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: infrastructure
+  #   steps:
+  #   - name: Configure AWS credentials
+  #     uses: aws-actions/configure-aws-credentials@v4
+  #     with:
+  #           aws-region: ${{ env.AWS_REGION }}
+  #           aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+  #           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+  #           audience: sts.amazonaws.com
+
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v2
+
+  #   - name: Check out terraform
+  #     uses: hashicorp/setup-terraform@v3
+
+  #   - name: Terraform Init
+  #     run: terraform init
+
+  #   - name: Terraform Plan
+  #     id: plan
+  #     run: terraform plan
+
+  #   - name: Terraform Apply
+  #     run: terraform apply -auto-approve
+
+  #   - name: Deploy to Elastic Beanstalk
+  #     run: eb deploy your-environment-name
+  
+  Flyway:
+    name: Run Flyway Migration
+    needs: compile
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v3.0.0
+    - name: Continuous Integration Flyway Clean Migrate
+      run: >-
+        docker run --rm
+        --volume ${{ github.workspace }}/migrations:/flyway/sql:ro
+        redgate/flyway
+        -url="jdbc:postgresql://booboobanisher-db.cidtxn2ndtwc.eu-west-1.rds.amazonaws.com:5432/bbbdb"
+        -user="dbadmin"
+        -password=${{ secrets.DB_PASSWORD }} migrate
