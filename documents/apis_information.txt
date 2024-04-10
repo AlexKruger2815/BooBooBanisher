@@ -1,0 +1,33 @@
+GETS:
+
+http://localhost:8080/user/getNewUser # the login functionality that returns a usermodel (also adds a new user)
+parameters (string token)
+http://localhost:8080/user/getuser # returns userModel 
+parameters  (string username)
+
+http://localhost:8080/message/error # get an error messageModel (simultaneously creates a session)
+parameter(int userID)
+http://localhost:8080/message/success # get a success messageModel (simultaneously creates a session)
+parameter(int userID)
+
+http://localhost:8080/message/all #gets an IEnumerable of messageModels of a particular status (dont know if u need this)
+parameter(int status)
+
+POSTS:
+
+http://localhost:8080/session #adds a new session with that information
+body (SessionModel)
+http://localhost:8080/user #adds a new user (practically useless now)
+body (UserModel)
+http://localhost:8080/category #adds a categoryModel to db
+body (categoryModel)
+
+
+Header:
+Authorization, Bearer ${token}
+
+
+i take ur toekn 
+call github
+look for 200 resp
+that means its valid

@@ -23,6 +23,19 @@ git clone https://github.com/yourusername/BooBooBanisher.git
 cd BooBooBanisher
 ```
 
+## Infrastructure Setup
+Prerequisites:
+* Terraform v1.5.7
+* Terragrunt v0.53.2
+1. Navigate to the ./infrastructure/directory
+2. Set these environment variables on your system for use when creating the DB:
+    * `TF_VAR_password`
+    * `TF_VAR_username`
+4. Run this command to build the infrastructure:
+   ``` sh
+   terragrunt run-all apply
+   ```
+
 ## The Banishers
 - Alex Kruger
 - Dané De Klerk
