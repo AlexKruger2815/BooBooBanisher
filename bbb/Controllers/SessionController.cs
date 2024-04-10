@@ -57,5 +57,16 @@ public class SessionController : ControllerBase
         }
 
     }
-
+    [HttpGet("stats")]
+    public IActionResult getStats(int userID, string messageCategory, DateTime? start = null, DateTime? end = null)
+    {
+        DateTime _start = start ?? DateTime.MinValue;
+        DateTime _end = end ?? DateTime.MinValue;
+        StatsDAO statsDAO = new StatsDAO();
+        String dateSql = " AND s.createdat >= \'" + _start + "\' AND s.createdat <= \'" + _end+"\'";
+        System.Console.WriteLine(dateSql);
+        var result = statsDAO.getStats(" where  s.userid = " + userID+dateSql);
+        //retrieve all details
+        return Ok(result);
+    }
 }

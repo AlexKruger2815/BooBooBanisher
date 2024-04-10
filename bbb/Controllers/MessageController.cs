@@ -16,7 +16,8 @@ public class MessageController : ControllerBase
     [HttpGet("all")]
     public IActionResult getAllMessage(int status)
     {
-        if(!Helper.CheckToken(HttpContext.Request.Headers)){
+        if (!Helper.CheckToken(HttpContext.Request.Headers))
+        {
             return BadRequest("Invalid Token");
         }
         var resp = dao.getMessage();
@@ -26,7 +27,8 @@ public class MessageController : ControllerBase
     [HttpGet("error")]
     public IActionResult getErrorMessage(int userID)
     {
-        if(!Helper.CheckToken(HttpContext.Request.Headers)){
+        if (!Helper.CheckToken(HttpContext.Request.Headers))
+        {
             return BadRequest("Invalid Token");
         }
         try
@@ -34,7 +36,7 @@ public class MessageController : ControllerBase
             //give you a random message
             // wasnt sure how Im going to know if its an error or a success
             //create a session
-            var resp = dao.getMessage(" where messagecategoryid in (1,3)"); //receiving an error
+            var resp = dao.getMessage(" where messagecategoryid in (1)"); //receiving an error
             var respList = resp.ToList();
             System.Console.WriteLine(respList[0].ToString());
             MessageModel model = respList[new Random().Next(respList.Count)];
@@ -51,7 +53,8 @@ public class MessageController : ControllerBase
     [HttpGet("success")]
     public IActionResult getSuccessfulMessage(int userID)
     {
-        if(!Helper.CheckToken(HttpContext.Request.Headers)){
+        if (!Helper.CheckToken(HttpContext.Request.Headers))
+        {
             return BadRequest("Invalid Token");
         }
         try
@@ -61,7 +64,7 @@ public class MessageController : ControllerBase
             // also create a session
             var resp = dao.getMessage("where messagecategoryid in (2)"); //receiving an error
             var respList = resp.ToList();
-            MessageModel model = respList[new Random().Next(respList.Count)]; 
+            MessageModel model = respList[new Random().Next(respList.Count)];
             createSession(userID, model.messageID);
             return Ok(model.content);
         }
@@ -69,6 +72,18 @@ public class MessageController : ControllerBase
         {
             return BadRequest(ex.Message);
         }
+    }
+    public IActionResult getOtherMessage(int userID)
+    {
+        if (!Helper.CheckToken(HttpContext.Request.Headers))
+        {
+            return BadRequest("Invalid Token");
+        }
+        var resp = dao.getMessage("where messagecategoryid in (3)"); //receiving an error
+        var respList = resp.ToList();
+        MessageModel model = respList[new Random().Next(respList.Count)];
+        createSession(userID, model.messageID);
+        return null;
     }
     private void createSession(int userID, int messageID)
     {
