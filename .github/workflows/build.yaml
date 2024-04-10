@@ -3,11 +3,15 @@ on:
     push:
       branches:
         - main
+    workflow_dispatch:
+
+env:
+    working_dir: 'bbb'
 
 permissions:
     id-token: write
     contents: read
-    
+
 jobs:
     Build:
       name: Build
