@@ -3,7 +3,6 @@ on:
     push:
       branches:
         - main
-        - alex/cicd
     workflow_dispatch:
 
 env:
@@ -45,5 +44,6 @@ jobs:
             ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
             IMAGE_TAG: ${{ steps.get-commit-hash.outputs.commit-hash }}-${{ steps.get-timestamp.outputs.timestamp }}
           run: |
+            aws ecr batch-delete-image --repository-name booboobanisher --region eu-west-1 --image-ids imageTag=latest
             docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
             docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
