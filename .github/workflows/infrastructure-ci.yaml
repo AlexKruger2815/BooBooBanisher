@@ -1,6 +1,9 @@
 name: 'Terragrunt GitHub Actions'
 on:
   push:
+    branches:
+      - main
+      - alex/cicd
     paths: 
       - "infrastructure/**"
   workflow_dispatch:

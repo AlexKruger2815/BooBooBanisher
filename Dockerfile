@@ -13,6 +13,6 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 RUN ls
 WORKDIR .
 COPY --from=build /bbb/out .
-EXPOSE 8080
-EXPOSE 3000
 ENTRYPOINT ["dotnet", "bbb.dll"]
+
+EXPOSE 8080

@@ -1,1 +1,1 @@
-{ "AWSEBDockerrunVersion": "1", "Image": { "Name": "978251882572.dkr.ecr.eu-west-1.amazonaws.com/booboobanisher" }, "Ports": [ { "ContainerPort": 3000 } ] }
+{ "AWSEBDockerrunVersion": "1", "Image": { "Name": "978251882572.dkr.ecr.eu-west-1.amazonaws.com/booboobanisher" }, "Ports": [ { "ContainerPort": 8080 } ] }
