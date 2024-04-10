@@ -3,7 +3,6 @@ on:
     push:
       branches:
         - main
-        - alex/cicd
     workflow_dispatch:
 
 env:
