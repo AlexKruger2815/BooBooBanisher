@@ -1,5 +1,7 @@
+*.zip
 levelup/
 *.png
+token.txt
 
 ## BEGIN TEMPLATE
 ## Ignore Visual Studio temporary files, build results, and

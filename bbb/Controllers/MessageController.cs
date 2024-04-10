@@ -20,6 +20,10 @@ public class MessageController : ControllerBase
         {
             return BadRequest("Invalid Token");
         }
+        if (status < 1)
+        {
+            return BadRequest("Invalid Status");
+        }
         var resp = dao.getMessage();
         return Ok(resp);
     }
@@ -30,6 +34,10 @@ public class MessageController : ControllerBase
         if (!Helper.CheckToken(HttpContext.Request.Headers))
         {
             return BadRequest("Invalid Token");
+        }
+        if (userID < 1)
+        {
+            return BadRequest("Invalid UserID");
         }
         try
         {
@@ -57,6 +65,10 @@ public class MessageController : ControllerBase
         {
             return BadRequest("Invalid Token");
         }
+        if (userID < 1)
+        {
+            return BadRequest("Invalid UserID");
+        }
         try
         {
             //give you a random message
@@ -79,11 +91,23 @@ public class MessageController : ControllerBase
         {
             return BadRequest("Invalid Token");
         }
-        var resp = dao.getMessage("where messagecategoryid in (3)"); //receiving an error
-        var respList = resp.ToList();
-        MessageModel model = respList[new Random().Next(respList.Count)];
-        createSession(userID, model.messageID);
-        return null;
+        if (userID < 1)
+        {
+            return BadRequest("Invalid UserID");
+        }
+        try
+        {
+
+            var resp = dao.getMessage("where messagecategoryid in (3)"); //receiving an error
+            var respList = resp.ToList();
+            MessageModel model = respList[new Random().Next(respList.Count)];
+            createSession(userID, model.messageID);
+            return Ok(model.content);
+        }
+        catch (System.Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
     private void createSession(int userID, int messageID)
     {

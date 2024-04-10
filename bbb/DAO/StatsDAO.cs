@@ -1,6 +1,5 @@
 using System.Data;
 using bbb.Models;
-using Microsoft.VisualBasic;
 using Npgsql;
 
 namespace bbb.DAO;
@@ -14,7 +13,7 @@ public class StatsDAO
     public IEnumerable<StatsModel> getStats(string filter)
     {
         string sql = "select c.messagecategorytype as category, m.messagecontent as content, s.createdAt from public.sessions s inner join messages m on m.messageid = s.messageid inner join messagecategory c on c.messagecategoryid = m.messagecategoryid " + filter;
-    System.Console.WriteLine("hi : "+sql);
+        System.Console.WriteLine("hi : " + sql);
         using (NpgsqlConnection connection = new NpgsqlConnection(db))
         {
             using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))

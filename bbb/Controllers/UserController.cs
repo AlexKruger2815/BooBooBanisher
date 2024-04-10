@@ -15,13 +15,14 @@ public class UserController : ControllerBase
     //localhost/user/newuser
     public IActionResult newUser([FromBody] UserModel model)
     {
-        if(!Helper.CheckToken(HttpContext.Request.Headers)){
+        if (!Helper.CheckToken(HttpContext.Request.Headers))
+        {
             return BadRequest("Invalid Token");
         }
         System.Console.WriteLine($"UserModel value: {model} = {model.userID}, {model.username} ");
-        if (model.username is not string || model.username == null)
+        if (model.username is not string || model.username == null || model.username.Equals("#"))
         {
-            return BadRequest("Ivalid UserModel entity");
+            return BadRequest("Invalid Username");
         }
         else
         {
@@ -42,8 +43,13 @@ public class UserController : ControllerBase
     [HttpGet(Name = "getUser")]
     public IActionResult getUser(string username)
     {
-        if(!Helper.CheckToken(HttpContext.Request.Headers)){
+        if (!Helper.CheckToken(HttpContext.Request.Headers))
+        {
             return BadRequest("Invalid Token");
+        }
+        else if (username == null || username.Equals("#"))
+        {
+            return BadRequest("Invalid Username");
         }
         string sql = $"select * from public.users where username = \'" + username + "\'";
         System.Console.WriteLine(" with " + sql);

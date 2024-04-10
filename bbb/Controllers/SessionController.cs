@@ -26,7 +26,6 @@ public class SessionController : ControllerBase
         {
             return BadRequest("Invalid UserID");
         }
-        // checkToken(tokenbearer);
         DateTime currentDateTime = DateTime.Now;
         try
         {
@@ -37,7 +36,6 @@ public class SessionController : ControllerBase
         {
             return BadRequest(e.Message);
         }
-        return Ok($"new session model: {model.messageID} {model.userID} {model.sessionID} => {currentDateTime}");
     }
 
     //GET http://localhost:8080/session parameter (userID)
@@ -57,15 +55,16 @@ public class SessionController : ControllerBase
         }
 
     }
+    // /session/stats
     [HttpGet("stats")]
     public IActionResult getStats(int userID, string messageCategory, DateTime? start = null, DateTime? end = null)
     {
         DateTime _start = start ?? DateTime.MinValue;
         DateTime _end = end ?? DateTime.MinValue;
         StatsDAO statsDAO = new StatsDAO();
-        String dateSql = " AND s.createdat >= \'" + _start + "\' AND s.createdat <= \'" + _end+"\'";
+        String dateSql = " AND s.createdat >= \'" + _start + "\' AND s.createdat <= \'" + _end + "\'";
         System.Console.WriteLine(dateSql);
-        var result = statsDAO.getStats(" where  s.userid = " + userID+dateSql);
+        var result = statsDAO.getStats(" where  s.userid = " + userID + dateSql);
         //retrieve all details
         return Ok(result);
     }

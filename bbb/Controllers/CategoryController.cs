@@ -29,7 +29,7 @@ public class CategoryController : ControllerBase
         {
             return BadRequest("Invalid Token");
         }
-        if (model.categoryType is not string || model.categoryType == null || model.categoryID <= 0)
+        if (model.categoryType is not string || model.categoryType == null || model.categoryID < 0 || model.categoryType.Contains('#'))
         {
             return BadRequest("Invalid entity inputs");
         }
