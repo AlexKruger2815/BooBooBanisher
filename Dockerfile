@@ -14,3 +14,5 @@ RUN ls
 WORKDIR .
 COPY --from=build /bbb/out .
 ENTRYPOINT ["dotnet", "bbb.dll"]
+
+EXPOSE 8080
