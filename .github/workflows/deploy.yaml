@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - joseph/prerelease
+      - alex/cicd
 
 env:
   AWS_REGION: "eu-west-1"
