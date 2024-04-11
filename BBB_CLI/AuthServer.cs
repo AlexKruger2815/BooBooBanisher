@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -50,6 +51,11 @@ public class AuthServer
     public async Task StartServerAsync(int port)
     {
         await _host.StartAsync();
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = $"{AuthorizationEndpoint}?client_id={ClientId}&redirect_uri=http://localhost:{port}",
+            UseShellExecute = true
+        });
         Console.WriteLine($"Authorize at this URL {AuthorizationEndpoint}?client_id={ClientId}&redirect_uri=http://localhost:{port}...");
     }
 
