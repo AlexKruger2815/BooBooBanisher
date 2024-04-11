@@ -46,6 +46,6 @@ INSERT INTO public.MessageCategory (messageCategoryID, messageContent) VALUES
 (2, 'What. A. Commit. So beautiful.'),
 (3, 'Hey there! Just wanted to drop by and give you a shoutout for your amazing work lately. Your dedication and attention to detail are truly commendable. Also, I wanted to mention that we had a minor hiccup on the server side – totally unrelated to anything you did. Just wanted to keep you in the loop! Keep up the fantastic work, and thanks for being such a rockstar!'),
 (3, 'The server is down :( but its ok I can tell you now with absolute confidence that your program will compile, no need to even test it!'),
-(3, 'Something went wrong so you might want to look at the real output. In the mean time you can read through the following extract: "Never gonna give you up, Never gonna let you down, Never gonna run around and desert you, Never gonna make you cry, Never gonna say goodbye, Never gonna tell a lie and hurt you"');
+(3, 'Something went wrong so you might want to look at the real output. In the mean time you can read through the following extract: "Never gonna give you up, Never gonna let you down, Never gonna run around and desert you, Never gonna make you cry, Never gonna say goodbye, Never gonna tell a lie and hurt you"'),
 (3, '500 error XOXO love you.'),
-(3, 'Remember to stay hydrated and do a quick posture check.'),
+(3, 'Remember to stay hydrated and do a quick posture check.');
