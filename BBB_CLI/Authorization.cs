@@ -6,7 +6,7 @@ public class Authorization
 {
     private readonly Dictionary<string, string?> _auth;
 
-    public new bool Expired => long.Parse(_auth?.GetValueOrDefault("expires_at", null) ?? string.Empty) < DateTime.Now.ToFileTime();
+    public new bool Expired => long.Parse(_auth?.GetValueOrDefault("expires_at", null) ?? $"{long.MaxValue}") < DateTime.Now.ToFileTime();
 
     public new string? Bearer => $"{_auth?.GetValueOrDefault("access_token", null)}";
 
@@ -19,8 +19,6 @@ public class Authorization
             var keyValue = pair.Split("=");
             parameters[keyValue[0]] = keyValue.Length > 1 ? keyValue[1].Trim() : null;
         }
-        if (!parameters.ContainsKey("expires_at"))
-            parameters["expires_at"] = DateTime.Now.AddMilliseconds(int.Parse(parameters["expires_in"] ?? string.Empty)).ToFileTime().ToString();
         _auth = parameters;
     }
 
