@@ -1,5 +1,7 @@
 # BooBooBanisher
 
+![Bear with booboo](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJhWpF_xYQtaT3j-FoNRczguvMv7AMAL8rEMoo6khruw&s)
+
 Welcome to BooBooBanisher&copy;! 🎉
 
 BooBooBanisher aims to sprinkle some motivation into your coding journey by displaying uplifting messages when you're trying to compile your code, whether it compiles successfully or it fails. Then you can look as peaceful as this person 🧘.
