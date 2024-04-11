@@ -11,7 +11,7 @@ namespace bbb.Controllers;
 public class UserController : ControllerBase
 {
     private UserDAO dao = new UserDAO();
-    [HttpPost("")]
+    [HttpPost("newUser")]
     //localhost/user/newuser
     public IActionResult newUser([FromBody] UserModel model)
     {
