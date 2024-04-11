@@ -1,6 +1,6 @@
 # BooBooBanisher
 
-![Bear with booboo](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJhWpF_xYQtaT3j-FoNRczguvMv7AMAL8rEMoo6khruw&s)
+![Bear with booboo](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJhWpF_xYQtaT3j-FoNRczguvMv7AMAL8rEMoo6khruw&s){ width: 52rem; height: 20rem; }
 
 Welcome to BooBooBanisher&copy;! 🎉
 
