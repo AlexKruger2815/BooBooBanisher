@@ -23,8 +23,9 @@ public class MessageDAO
                 while (reader.Read())
                 {
                     var model = new MessageModel();
-                    model.categoryID = reader.GetInt32(1);
+                    model.messageID = reader.GetInt32(0);
                     model.content = reader.GetString(2);
+                    model.categoryID = reader.GetInt32(1);
                     System.Console.WriteLine("dao value : "+model);
                     messages.Add(model);
                 }

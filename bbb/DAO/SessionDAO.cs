@@ -16,10 +16,10 @@ public class SessionDAO
             // Open the connection
             connection.Open();
             var cmd = new NpgsqlCommand(sql, (NpgsqlConnection?)connection);
+            System.Console.WriteLine("isnert session "+model );
             cmd.Parameters.AddWithValue("userID", model.userID);
             cmd.Parameters.AddWithValue("messageID", model.messageID);
             cmd.Parameters.AddWithValue(parameterName: "time", time);
-
             System.Console.WriteLine(cmd.CommandText);
             var response = cmd.ExecuteNonQuery();
             Console.WriteLine($"{response} rows affected.");
