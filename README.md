@@ -57,6 +57,11 @@ cd bbb
 dotnet run
 ```
 
+### Running the CLI
+```bash
+cd BBB_CLI
+dotnet run
+```
 
 ## The Banishers
 - Alex Kruger
