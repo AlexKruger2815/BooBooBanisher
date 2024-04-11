@@ -50,14 +50,13 @@ public class SessionController : ControllerBase
         }
         catch (System.Exception)
         {
-
             throw;
         }
 
     }
     // /session/stats
     [HttpGet("stats")]
-    public IActionResult getStats(int userID, string messageCategory, DateTime? start = null, DateTime? end = null)
+    public IActionResult getStats(int userID, DateTime? start = null, DateTime? end = null)
     {
         DateTime _start = start ?? DateTime.MinValue;
         DateTime _end = end ?? DateTime.MinValue;
