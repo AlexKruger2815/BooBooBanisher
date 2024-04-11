@@ -11,7 +11,7 @@ namespace bbb.Controllers;
 public class UserController : ControllerBase
 {
     private UserDAO dao = new UserDAO();
-    [HttpPost("")]
+    [HttpPost("newUser")]
     //localhost/user/newuser
     public IActionResult newUser([FromBody] UserModel model)
     {
@@ -40,7 +40,7 @@ public class UserController : ControllerBase
         return Ok($"UserModel value: {model} = {model.userID}, {model.username} ");
     }
 
-    [HttpGet(Name = "getUser")]
+    [HttpGet("getUser")]
     public IActionResult getUser(string username)
     {
         if (!Helper.CheckToken(HttpContext.Request.Headers))
@@ -65,11 +65,14 @@ public class UserController : ControllerBase
         }
     }
 
-    [HttpGet("getNewUser")]
-    public IActionResult getNewUser(string token)
+    [HttpGet("")]
+    public IActionResult getNewUser()
     {
         try
         {
+            string token = "";
+            HttpContext.Request.Headers.TryGetValue("Authorization", out var temp);
+            token = temp!;
             var response = getUsername(token);
             JsonDocument el = JsonDocument.Parse(response.Result!);
             var username = el.RootElement.GetProperty("login").GetString();
