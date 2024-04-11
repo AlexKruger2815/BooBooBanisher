@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Net.Http.Headers;
 using BBB_CLI;
 
 
@@ -50,6 +51,19 @@ Console.WriteLine(
         0 => "Yippee!",
         _ => "Unknown: " + process.ExitCode,
     });
+mainAsync();
 Console.WriteLine("Do you want see the real response? (Y/N):");
 var response = Console.ReadLine();
 if (response?.ToLower() == "y" || response?.ToLower() == "yes") Console.WriteLine(process.StandardOutput.ReadToEnd());
+
+async Task mainAsync()
+{
+    using var client = new HttpClient();
+    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(authorization?.Bearer ?? string.Empty);
+    System.Console.WriteLine(    client.DefaultRequestHeaders.Authorization);
+    var webResponse = await client.GetAsync("http://booboobanisher.eba-btqxcacw.eu-west-1.elasticbeanstalk.com/Category");
+    System.Console.WriteLine(webResponse.StatusCode);
+    var responseContent = webResponse.IsSuccessStatusCode ? await webResponse.Content.ReadAsStringAsync() : null;
+    System.Console.WriteLine(responseContent);
+    Console.WriteLine(responseContent);
+}
