@@ -17,9 +17,8 @@ public class CategoryController : ControllerBase
         if (!Helper.CheckToken(HttpContext.Request.Headers))
         {
             return BadRequest("Invalid Token");
-        }
-        dao.GetCategories();
-        return Ok($"all categories");
+        };
+        return Ok(dao.GetCategories());
     }
 
     [HttpPost("")]

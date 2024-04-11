@@ -55,7 +55,7 @@ public class UserController : ControllerBase
         System.Console.WriteLine(" with " + sql);
         try
         {
-            var resp = dao.getUser("where username = \'" + username + "\'");
+            var resp = dao.getUser("where username = \'" + username + "\'").First();
             return Ok(resp);
         }
         catch (Exception ex)
@@ -97,7 +97,8 @@ public class UserController : ControllerBase
                     return BadRequest(e.Message);
             }
             //receive the token from frontend, get username directly from github
-            return Ok(dao.getUser(" where username = \'" + username + "\'"));
+            UserModel returnUser =dao.getUser(" where username = \'" + username + "\'").First(); 
+            return Ok(returnUser);
         }
         catch (Exception ex) { return BadRequest($"Bad token request: {ex.Message}"); }
     }
