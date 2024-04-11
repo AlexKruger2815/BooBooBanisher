@@ -1,3 +1,4 @@
+using BBB_Desktop.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -6,6 +7,7 @@ using System;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Security.Policy;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,11 +16,12 @@ public class AuthServer
 {
     private readonly IWebHost _host;
     private readonly SemaphoreSlim _responseCapturedSignal;
-    private Authentication? _authorization;
-    private const string ClientId = "Iv1.9fb0839220db756c";
-    private const string ClientSecret = "2f802c9ccc0f95543b1a2ad398fca5613d349fe4";
+    private Authorization? _authorization;
+    private const string ClientId = "Iv1.66910d0a02a3522e";
+    private const string ClientSecret = "86c52408519c38b06fdd49b3d28b03104e2e44cb";
     private const string AuthorizationEndpoint = "https://github.com/login/oauth/authorize";
     private const string TokenEndpoint = "https://github.com/login/oauth/access_token";
+    public bool IsStarted { get; private set; } = false;
 
     public AuthServer()
     {
@@ -38,9 +41,12 @@ public class AuthServer
 
                         using var client = new HttpClient();
                         var response = await client.GetAsync($"{TokenEndpoint}?client_secret={ClientSecret}&client_id={ClientId}&code={code}");
-                        var responseContent = response.IsSuccessStatusCode ? await response.Content.ReadAsStringAsync() : null;
+                        response.EnsureSuccessStatusCode();
 
-                        _authorization = new Authentication(responseContent);
+                        var responseBody = await response.Content.ReadAsStringAsync()
+                            .ConfigureAwait(false);
+
+                        _authorization = new Authorization(responseBody);
                         _responseCapturedSignal.Release();
                     });
                 });
@@ -58,14 +64,16 @@ public class AuthServer
             UseShellExecute = true
         };
         Process.Start(webDirect);
+        IsStarted = true;
     }
 
     public async Task StopServerAsync()
     {
         await _host.StopAsync();
+        IsStarted = false;
     }
 
-    public async Task<Authentication?> GetTokenAsync()
+    public async Task<Authorization?> GetTokenAsync()
     {
         // Wait until a response is captured
         await _responseCapturedSignal.WaitAsync();

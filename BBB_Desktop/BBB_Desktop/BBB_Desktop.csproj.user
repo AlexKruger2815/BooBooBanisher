@@ -7,27 +7,36 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Controls\HeaderControl.xaml.cs">
+    <Compile Update="Views\InspectorView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\InspectorContol.xaml.cs">
+    <Compile Update="Views\StatisticsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\OutputView.xaml.cs">
+    <Compile Update="Windows\LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Controls\HeaderControl.xaml">
+    <Page Update="Views\InspectorView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Controls\InspectorContol.xaml">
+    <Page Update="Views\StatisticsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\OutputView.xaml">
+    <Page Update="Resources\Brushes.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Fonts.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Styles.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Windows\LoginWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

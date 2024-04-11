@@ -4,17 +4,55 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BBB_Desktop"
-        xmlns:controls="clr-namespace:BBB_Desktop.Controls"
+        xmlns:views="clr-namespace:BBB_Desktop.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="675" Width="1000">
-    <Grid Background="#FF464646">
+        Title="BooBooBanisher" Height="675" Width="1000" FontFamily="{StaticResource Poppins}">
+    <Grid Background="{StaticResource DarkestGrey}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <controls:HeaderControl Grid.Row="0"/>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Column="0">
+                <Label Foreground="{StaticResource MainForeground}" FontSize="40" 
+               Content="BooBooBanisher" Margin="20 10 10 5" FontWeight="SemiBold"/>
+            </StackPanel>
+            <Grid Grid.Column="1">
+                <Border Background="{StaticResource MediumGrey}" 
+                        CornerRadius="22" 
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Top"
+                        Margin="20 10">
+                    <Label x:Name="lblUsername"
+                           Foreground="{StaticResource MainForeground}" 
+                           Margin="5 3" 
+                           VerticalAlignment="Center" 
+                           HorizontalAlignment="Center"
+                           FontSize="18"
+                           FontWeight="Medium"/>
+                </Border>
+
+
+            </Grid>
+        </Grid>
         
-        <controls:InspectorContol Grid.Row="1"/>
+        <TabControl Grid.Row="1" Style="{StaticResource TabControlStyle}">
+            <TabItem Header="Inspect File" Style="{StaticResource TabItemStyle}">
+                <views:InspectorView/>
+            </TabItem>
+            <TabItem Header="Statistics" Style="{StaticResource TabItemStyle}">
+                <views:StatisticsView/>
+            </TabItem>
+            <TabItem Header="Help" Style="{StaticResource TabItemStyle}">
+                <TextBlock Margin="30 15">
+                    Something something instructions.<LineBreak/> Hi :)
+                </TextBlock>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

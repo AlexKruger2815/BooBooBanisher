@@ -2,15 +2,16 @@ using System.Text;
 
 namespace BBB_Desktop.Auth;
 
-public class Authentication
+public class Authorization
 {
     private readonly Dictionary<string, string?> _auth;
 
-    public bool Expired => long.Parse(_auth?.GetValueOrDefault("expires_at", null) ?? string.Empty) < DateTime.Now.ToFileTime();
+    public bool Expired => false;
+    //long.Parse(_auth?.GetValueOrDefault("expires_at", null) ?? string.Empty) < DateTime.Now.ToFileTime();
 
-    public string? Bearer => $"{_auth?.GetValueOrDefault("token_type", null)} {_auth?.GetValueOrDefault("access_token", null)}";
+    public string? Bearer => $"{_auth?.GetValueOrDefault("access_token", null)}";
 
-    public Authentication(string? response)
+    public Authorization(string? response)
     {
         var pairs = response?.Split("&");
         var parameters = new Dictionary<string, string?>();
@@ -19,8 +20,8 @@ public class Authentication
             var keyValue = pair.Split("=");
             parameters[keyValue[0]] = keyValue.Length > 1 ? keyValue[1].Trim() : null;
         }
-        if (!parameters.ContainsKey("expires_at"))
-            parameters["expires_at"] = DateTime.Now.AddMilliseconds(int.Parse(parameters["expires_in"] ?? string.Empty)).ToFileTime().ToString();
+        //if (!parameters.ContainsKey("expires_at"))
+        //    parameters["expires_at"] = DateTime.Now.AddMilliseconds(int.Parse(parameters["expires_in"] ?? string.Empty)).ToFileTime().ToString();
         _auth = parameters;
     }
 

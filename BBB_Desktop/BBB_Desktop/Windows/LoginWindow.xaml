@@ -1,0 +1,22 @@
+﻿<Window x:Class="BBB_Desktop.Windows.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BBB_Desktop.Windows"
+        mc:Ignorable="d"
+        Title="Login" Height="300" Width="400" FontFamily="{StaticResource Poppins}">
+    <Grid Background="{StaticResource DarkestGrey}">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Foreground="{StaticResource MainForeground}" 
+                       FontSize="14" FontWeight="Medium">
+                Login via GitHub authorization:
+            </TextBlock>
+            <Button Content="Authorize" Grid.Row="0" HorizontalAlignment="Center"
+                    FontWeight="Medium" FontSize="16" Padding="20 10" Margin="0 10 0 0" 
+                    Foreground="{StaticResource MainForeground}" 
+                    Background="{StaticResource MediumGrey}" 
+                    Click="Authorize_Button_ClickAsync" />
+        </StackPanel>
+    </Grid>
+</Window>

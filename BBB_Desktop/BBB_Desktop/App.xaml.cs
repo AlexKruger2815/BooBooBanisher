@@ -9,6 +9,11 @@ namespace BBB_Desktop
     /// </summary>
     public partial class App : Application
     {
+        private void ApplicationStart(object sender, StartupEventArgs e)
+        {
+            Window login = new Windows.LoginWindow();
+            login.Show();
+        }
     }
 
 }

@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="DarkestGrey" Color="#FF464646"/>
+    <SolidColorBrush x:Key="MediumGrey" Color="#FF6F6F6F"/>
+    <SolidColorBrush x:Key="LightGrey" Color="#FF838383"/>
+    <SolidColorBrush x:Key="LightestGrey" Color="#FFA2A2A2"/>
+    <SolidColorBrush x:Key="MainForeground" Color="White"/>
+    <SolidColorBrush x:Key="SuccessForeground" Color="#FF92FF99"/>
+    <SolidColorBrush x:Key="ErrorForeground" Color="#FFFF9292"/>
+    <SolidColorBrush x:Key="OtherForeground" Color="#FFFFFB92"/>
+</ResourceDictionary>

@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\bbdnet3182\\Documents\\LevelUps\\C# LevelUp\\practice\\BBB_Desktop\\BBB_Desktop\\BBB_Desktop.csproj",
+      "projectUniqueName": "C:\\Users\\bbdnet3182\\Documents\\LevelUps\\C# LevelUp\\BooBooBanisher\\BBB_Desktop\\BBB_Desktop\\BBB_Desktop.csproj",
       "projectName": "BBB_Desktop",
-      "projectPath": "C:\\Users\\bbdnet3182\\Documents\\LevelUps\\C# LevelUp\\practice\\BBB_Desktop\\BBB_Desktop\\BBB_Desktop.csproj",
+      "projectPath": "C:\\Users\\bbdnet3182\\Documents\\LevelUps\\C# LevelUp\\BooBooBanisher\\BBB_Desktop\\BBB_Desktop\\BBB_Desktop.csproj",
       "packagesPath": "C:\\Users\\bbdnet3182\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\bbdnet3182\\Documents\\LevelUps\\C# LevelUp\\practice\\BBB_Desktop\\BBB_Desktop\\obj\\",
+      "outputPath": "C:\\Users\\bbdnet3182\\Documents\\LevelUps\\C# LevelUp\\BooBooBanisher\\BBB_Desktop\\BBB_Desktop\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -46,6 +46,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -73,7 +78,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
