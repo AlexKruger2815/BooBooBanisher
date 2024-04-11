@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Net.Http.Headers;
+using System.Text.Json; 
+
 using BBB_CLI;
 
 
@@ -28,6 +30,12 @@ catch
     // ignored
 }
 
+using var client = new HttpClient();
+client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(authorization?.Bearer ?? string.Empty);
+var login = client.GetAsync("http://booboobanisher.eba-btqxcacw.eu-west-1.elasticbeanstalk.com/user")
+    .ContinueWith(previous => previous.Result.Content.ReadAsStringAsync().Result);
+var user = JsonSerializer.Deserialize<User[]>(await login)?[0];
+
 var startInfo = new ProcessStartInfo
 {
     WindowStyle = ProcessWindowStyle.Hidden,
@@ -47,23 +55,20 @@ process.WaitForExit();
 Console.WriteLine(
     process.ExitCode switch
     {
-        1 => "Uh oh, Stinky",
-        0 => "Yippee!",
+        1 => await Error(),
+        0 => await Success(),
         _ => "Unknown: " + process.ExitCode,
     });
-mainAsync();
+
 Console.WriteLine("Do you want see the real response? (Y/N):");
 var response = Console.ReadLine();
 if (response?.ToLower() == "y" || response?.ToLower() == "yes") Console.WriteLine(process.StandardOutput.ReadToEnd());
+return;
 
-async Task mainAsync()
-{
-    using var client = new HttpClient();
-    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(authorization?.Bearer ?? string.Empty);
-    System.Console.WriteLine(    client.DefaultRequestHeaders.Authorization);
-    var webResponse = await client.GetAsync("http://booboobanisher.eba-btqxcacw.eu-west-1.elasticbeanstalk.com/Category");
-    System.Console.WriteLine(webResponse.StatusCode);
-    var responseContent = webResponse.IsSuccessStatusCode ? await webResponse.Content.ReadAsStringAsync() : null;
-    System.Console.WriteLine(responseContent);
-    Console.WriteLine(responseContent);
-}
+Task<string> Error() =>
+    client.GetAsync($"http://booboobanisher.eba-btqxcacw.eu-west-1.elasticbeanstalk.com/Message/error?userID={user?.userID}")
+        .ContinueWith(previous => previous.Result.Content.ReadAsStringAsync().Result);
+
+Task<string> Success() =>
+    client.GetAsync($"http://booboobanisher.eba-btqxcacw.eu-west-1.elasticbeanstalk.com/Message/success?userID={user?.userID}")
+        .ContinueWith(previous => previous.Result.Content.ReadAsStringAsync().Result);
