@@ -55,4 +55,4 @@ For more detailed documentation and tips, check out our [Confluence page](https:
 
 Stay up-to-date with our project progress and tasks by visiting our [Jira board](https://bbd-dane.atlassian.net/jira/software/projects/CLUB/boards/5).
 
-> :memo: **Note:** Sunrises are beautiful ![Ouchie](https://i1.sndcdn.com/artworks-2qFGKQEP3Eki8sdY-IalUhg-t500x500.jpg).
+> :memo: **Note:** Sunrises are beautiful.
