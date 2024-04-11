@@ -3,7 +3,7 @@ INSERT INTO public.MessageCategory (MessageCategoryType) VALUES
 ('Success'),
 ('Other');
 
-INSERT INTO public.MessageCategory (messageCategoryID, messageContent) VALUES
+INSERT INTO public.messages (messageCategoryID, messageContent) VALUES
 (1, 'You made a booboo :( That''s ok, everyone makes mistakes. Just keep trying!'),
 (1, 'It didn''t work, but you''re still doing amazing sweetie!'),
 (1, 'Task failed successfully. Mission not accomplished.'),
