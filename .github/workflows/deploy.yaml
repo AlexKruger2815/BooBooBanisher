@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: bbb
+        working-directory: BBB_CLI
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -31,9 +31,11 @@ jobs:
     
     - name: Build and Publish
       run: |
+        mkdir ${{ github.workspace }}/Release
         dotnet build --configuration Release
         dotnet publish --configuration Release -o ./publish
-        zip -r booboobanisher.zip ./publish 
+        zip -r bbb_cli.zip ./publish
+        mv bbb_cli.zip ${{ github.workspace }}/Release
   
   Flyway:
     name: Run Flyway Migration

@@ -8,7 +8,7 @@ public class Authorization
 
     public new bool Expired => long.Parse(_auth?.GetValueOrDefault("expires_at", null) ?? string.Empty) < DateTime.Now.ToFileTime();
 
-    public new string? Bearer => $"{_auth?.GetValueOrDefault("token_type", null)} {_auth?.GetValueOrDefault("access_token", null)}";
+    public new string? Bearer => $"{_auth?.GetValueOrDefault("access_token", null)}";
 
     public Authorization(string? response)
     {
