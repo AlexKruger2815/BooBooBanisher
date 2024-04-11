@@ -1,0 +1,38 @@
+name: Add to releases
+
+on:
+  push:
+    branches:
+      - main 
+      - joseph/prerelease
+
+permissions:
+  contents: write
+  pull-requests: write
+  repository-projects: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: BBB_CLI
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.0.x' 
+    
+    - name: Build and Publish
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        mkdir ${{ github.workspace }}/Release
+        dotnet build --configuration Release
+        dotnet publish --configuration Release -o ./publish
+        zip -r bbb_cli.zip ./publish
+        gh release create CLI
+        gh release upload CLI ./bbb_cli.zip
