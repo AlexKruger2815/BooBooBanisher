@@ -85,6 +85,9 @@ public class MessageController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+    
+    [HttpGet("other")]
+
     public IActionResult getOtherMessage(int userID)
     {
         if (!Helper.CheckToken(HttpContext.Request.Headers))
@@ -111,6 +114,7 @@ public class MessageController : ControllerBase
     }
     private void createSession(int userID, int messageID)
     {
+        System.Console.WriteLine("Session message id for constraint "+messageID);
         SessionDAO session = new SessionDAO();
         SessionModel newSession = new SessionModel();
         newSession.userID = userID;
