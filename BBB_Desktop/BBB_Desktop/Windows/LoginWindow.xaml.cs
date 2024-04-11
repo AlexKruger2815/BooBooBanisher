@@ -1,5 +1,4 @@
 ﻿using BBB_Desktop.Auth;
-using System.IO;
 using System.Windows;
 
 namespace BBB_Desktop.Windows
@@ -30,30 +29,16 @@ namespace BBB_Desktop.Windows
         {
             Authorization? authorization;
 
-            //NEW STUFF
-            try
-            {
-                using var reader = new StreamReader("token.txt");
-                authorization = new Authorization(reader.ReadToEnd());
-                if (authorization.Expired) throw new FileNotFoundException();
-            }
-            catch (FileNotFoundException)
-            {
-                if (!codeServer.IsStarted) await codeServer.StartServerAsync(5000);
-                authorization = await codeServer.GetTokenAsync();
-                await codeServer.StopServerAsync();
-            }
+            if (!codeServer.IsStarted) await codeServer.StartServerAsync(5000);
+            authorization = await codeServer.GetTokenAsync();
+            await codeServer.StopServerAsync();
 
-            try
+            if (authorization != null && !String.IsNullOrEmpty(authorization.Bearer))
             {
-                await using var writer = new StreamWriter("token.txt");
-                writer.WriteLine(authorization);
-                writer.Flush();
-                writer.Close();
+                App.Current.Properties["access_token"] = authorization.Bearer;
                 loginSuccessful = true;
                 this.Close();
             }
-            catch { }
 
         }
     }

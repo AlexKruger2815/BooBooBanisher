@@ -58,7 +58,10 @@
                             DisplayDateStart="{Binding ElementName=StartDate,Path=SelectedDate}"
                             DisplayDateEnd="{Binding Mode=OneWay, Source={x:Static system:DateTime.Today}}"/>
             </StackPanel>
-            <DataGrid Background="{StaticResource DarkestGrey}" ItemsSource="{Binding Stats}"/>
+            <DataGrid x:Name="dgStats" Background="{StaticResource DarkestGrey}" ItemsSource="{Binding Stats}" 
+                      CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" 
+                      CanUserReorderColumns="False" CanUserResizeColumns="False"
+                      IsReadOnly="True" FontSize="12" MaxColumnWidth="400" HorizontalAlignment="Center"/>
         </StackPanel>
     </Grid>
 </UserControl>
