@@ -1,7 +1,7 @@
 ![build succeeded](https://img.shields.io/badge/build-succeeded-brightgreen.svg)
 ![Test passing](https://img.shields.io/badge/Tests-passing-brightgreen.svg)
-![](https://img.shields.io/badge/Booboo%3F-Banished-green)
-![](https://img.shields.io/badge/Yee-Haw-green)
+![](https://img.shields.io/badge/Booboo%3F-Banished-brightgreen)
+![](https://img.shields.io/badge/Yee-Haw-brightgreen)
 
 
 
