@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using bbb.Models;
 using bbb.DAO;
 using System.Text.Json;
-
+using bbb.Helpers;
 namespace bbb.Controllers;
 
 [ApiController]
@@ -11,14 +11,18 @@ namespace bbb.Controllers;
 public class UserController : ControllerBase
 {
     private UserDAO dao = new UserDAO();
-    [HttpPost("")]
+    [HttpPost("newUser")]
     //localhost/user/newuser
     public IActionResult newUser([FromBody] UserModel model)
     {
-        System.Console.WriteLine($"UserModel value: {model} = {model.userID}, {model.username} ");
-        if (model.username is not string || model.username == null)
+        if (!Helper.CheckToken(HttpContext.Request.Headers))
         {
-            return BadRequest("Ivalid UserModel entity");
+            return BadRequest("Invalid Token");
+        }
+        System.Console.WriteLine($"UserModel value: {model} = {model.userID}, {model.username} ");
+        if (model.username is not string || model.username == null || model.username.Equals("#"))
+        {
+            return BadRequest("Invalid Username");
         }
         else
         {
@@ -36,9 +40,17 @@ public class UserController : ControllerBase
         return Ok($"UserModel value: {model} = {model.userID}, {model.username} ");
     }
 
-    [HttpGet(Name = "getUser")]
+    [HttpGet("getUser")]
     public IActionResult getUser(string username)
     {
+        if (!Helper.CheckToken(HttpContext.Request.Headers))
+        {
+            return BadRequest("Invalid Token");
+        }
+        else if (username == null || username.Equals("#"))
+        {
+            return BadRequest("Invalid Username");
+        }
         string sql = $"select * from public.users where username = \'" + username + "\'";
         System.Console.WriteLine(" with " + sql);
         try
@@ -53,11 +65,14 @@ public class UserController : ControllerBase
         }
     }
 
-    [HttpGet("getNewUser")]
-    public IActionResult getNewUser(string token)
+    [HttpGet("")]
+    public IActionResult getNewUser()
     {
         try
         {
+            string token = "";
+            HttpContext.Request.Headers.TryGetValue("Authorization", out var temp);
+            token = temp!;
             var response = getUsername(token);
             JsonDocument el = JsonDocument.Parse(response.Result!);
             var username = el.RootElement.GetProperty("login").GetString();

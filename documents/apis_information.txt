@@ -1,12 +1,13 @@
 GETS:
-http://localhost:8080/user/getNewUser # the login functionality that returns a usermodel (also adds a new user)
+
+http://localhost:8080/user/getNewUser # the login functionality that returns a usermodel (also adds a new user)
 parameters (string token)
 http://localhost:8080/user/getuser # returns userModel 
 parameters  (string username)
 
-http://localhost:8080/message/error # get an error messageModel (also posts a session)
+http://localhost:8080/message/error # get an error messageModel (simultaneously creates a session)
 parameter(int userID)
-http://localhost:8080/message/success # get a success messageModel (also posts a session)
+http://localhost:8080/message/success # get a success messageModel (simultaneously creates a session)
 parameter(int userID)
 
 http://localhost:8080/message/all #gets an IEnumerable of messageModels of a particular status (dont know if u need this)

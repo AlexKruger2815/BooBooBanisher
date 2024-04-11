@@ -1,7 +1,5 @@
 using bbb.Models;
 using Npgsql;
-using Microsoft.AspNetCore.Mvc;
-using Dapper;
 using System.Data;
 
 namespace bbb.DAO;
@@ -16,18 +14,31 @@ public class UserDAO
     {
         string sql = "select * from public.users " + filter;
         System.Console.WriteLine("user dao: " + sql);
-        using (IDbConnection connection = new NpgsqlConnection(db))
+        using (NpgsqlConnection connection = new NpgsqlConnection(db))
         {
-            // Open the connection
-            connection.Open();
-            var response = connection.Query<UserModel>(sql);
-            System.Console.WriteLine(response);
-            return response;
+            using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
+            {
+                // Open the connection
+                connection.Open();
+                NpgsqlDataReader reader = command.ExecuteReader();
+                List<UserModel> users = new List<UserModel>();
+                while (reader.Read())
+                {
+                    var model = new UserModel();
+                    model.userID = reader.GetInt32(0);
+                    model.username = reader.GetString(1);
+                    System.Console.WriteLine(model);
+                    users.Add(model);
+                }
+                reader.Close();
+                System.Console.WriteLine(users.Count);
+                return users;
+            }
         }
     }
     public int postUser(UserModel model)
     {
-        if (model.username is not string || model.username == null || model.username =="#")
+        if (model.username is not string || model.username == null || model.username == "#")
         {
             return -1;
         }
