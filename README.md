@@ -1,6 +1,6 @@
 # BooBooBanisher
 
-Welcome to BooBooBanisher! 🎉&copy;
+Welcome to BooBooBanisher&copy;! 🎉
 
 BooBooBanisher aims to sprinkle some motivation into your coding journey by displaying uplifting messages when you're trying to compile your code, whether it compiles successfully or it fails. Then you can look as peaceful as this person 🧘.
 
