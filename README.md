@@ -15,9 +15,10 @@ You can use our program to run terminal commands, more specifically to compile y
 
 ## Visual Demonstration
 
-![Bear with booboo](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJhWpF_xYQtaT3j-FoNRczguvMv7AMAL8rEMoo6khruw&s) - Bear with booboo
+| Bear with booboo  | Bear after using BooBooBanisher |
+| ------------- | ------------- |
+| <img width="250" height="100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJhWpF_xYQtaT3j-FoNRczguvMv7AMAL8rEMoo6khruw&s">  | <img width="250" height="100" src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/202002/teddy-1444642_960_720_0.jpeg?size=690:388">  |
 
-![Bear without booboo](https://akm-img-a-in.tosshub.com/indiatoday/images/story/202002/teddy-1444642_960_720_0.jpeg?size=690:388) - Bear after using BooBooBanisher
 
 ## Features
 
