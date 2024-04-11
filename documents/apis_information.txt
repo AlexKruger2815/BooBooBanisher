@@ -8,7 +8,7 @@ Message:
 [GET] ::/message/other?userID={userID} (Authorization: {access_token})
 
 Session:
-[GET] ::/session/stats?userID,messageCategory,startdate,enddate (Authorization: {access_token})
+[GET] ::/session/stats?userID={userID},startdate={(Optional) DateTime},enddate={(Optional) DateTime} (Authorization: {access_token})
 [GET] ::/session?userID={userID} (Authorization: {access_token})
 
 Category:
