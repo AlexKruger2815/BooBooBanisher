@@ -4,7 +4,6 @@ create table public.Users(
 )
 ;
 
-
 create table public.MessageCategory(
 	MessageCategoryID SERIAL PRIMARY KEY,
 	MessageCategoryType varchar(50) not null

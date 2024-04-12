@@ -10,7 +10,7 @@ public class MessageDAO
             .Build().GetConnectionString("DefaultConnection");
     public IEnumerable<MessageModel> getMessage(string filter = "")
     {
-        string sql = $"select messageid, messagecategoryid as categoryid, messagecontent as content from public.messages " + filter;
+        string sql = $"select messageid as messageID, messagecategoryid as categoryid, messagecontent as content from public.messages " + filter;
         System.Console.WriteLine($"msg DAO: {sql}");
         using (NpgsqlConnection connection = new NpgsqlConnection(db))
         {
@@ -23,9 +23,10 @@ public class MessageDAO
                 while (reader.Read())
                 {
                     var model = new MessageModel();
-                    model.categoryID = reader.GetInt32(1);
+                    model.messageID = reader.GetInt32(0);
                     model.content = reader.GetString(2);
-                    System.Console.WriteLine(model);
+                    model.categoryID = reader.GetInt32(1);
+                    System.Console.WriteLine("dao value : "+model);
                     messages.Add(model);
                 }
                 reader.Close();
