@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BBB_Desktop"
         xmlns:views="clr-namespace:BBB_Desktop.Views"
         mc:Ignorable="d"
-        Title="BooBooBanisher" Height="675" Width="1000" FontFamily="{StaticResource Poppins}">
+        Title="BooBooBanisher" Height="675" Width="1000" FontFamily="{StaticResource Poppins}" ResizeMode="NoResize">
     <Grid Background="{StaticResource DarkestGrey}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

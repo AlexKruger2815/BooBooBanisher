@@ -22,7 +22,7 @@
                            HorizontalAlignment="Center"
                            FontSize="18"
                            FontWeight="Regular"/>
-                    <Label Content="90" 
+                    <Label Content="{Binding Successes}" 
                            Foreground="{StaticResource SuccessForeground}" 
                            Margin="15 0 15 3" 
                            HorizontalAlignment="Center"
@@ -40,7 +40,7 @@
                             HorizontalAlignment="Center"
                             FontSize="18"
                             FontWeight="Regular"/>
-                    <Label Content="10200" 
+                    <Label Content="{Binding Failures}" 
                             Foreground="{StaticResource ErrorForeground}" 
                             Margin="15 0 15 3" 
                             HorizontalAlignment="Center"
@@ -51,17 +51,26 @@
             </Border>
         </StackPanel>
         <StackPanel Grid.Column="1">
-            <StackPanel Orientation="Horizontal">
-                <DatePicker x:Name="StartDate" FontSize="16" Margin="20 10" Focusable="False"
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <TextBlock Text="From:" Foreground="Black" VerticalAlignment="Center" FontSize="18" />
+                <DatePicker x:Name="StartDate" FontSize="16" Margin="10 10 40 10" Focusable="False"
                             DisplayDateEnd="{Binding ElementName=EndDate,Path=SelectedDate}"/>
-                <DatePicker x:Name="EndDate" FontSize="16" Margin="20 10" Focusable="False"
+                <TextBlock Text="To:" Foreground="Black" VerticalAlignment="Center" FontSize="18" />
+                <DatePicker x:Name="EndDate" FontSize="16" Margin="10 10 20 10" Focusable="False"
                             DisplayDateStart="{Binding ElementName=StartDate,Path=SelectedDate}"
                             DisplayDateEnd="{Binding Mode=OneWay, Source={x:Static system:DateTime.Today}}"/>
             </StackPanel>
-            <DataGrid x:Name="dgStats" Background="{StaticResource DarkestGrey}" ItemsSource="{Binding Stats}" 
-                      CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" 
-                      CanUserReorderColumns="False" CanUserResizeColumns="False"
-                      IsReadOnly="True" FontSize="12" MaxColumnWidth="400" HorizontalAlignment="Center"/>
+            <Grid>
+                <DataGrid x:Name="dgStats" Background="{StaticResource DarkestGrey}" 
+                          ItemsSource="{Binding Stats}" 
+                          CanUserResizeRows="False" CanUserDeleteRows="False" 
+                          CanUserAddRows="False" CanUserReorderColumns="False" 
+                          CanUserResizeColumns="False" IsReadOnly="True" 
+                          FontSize="12" MaxColumnWidth="400" 
+                          HorizontalAlignment="Center" 
+                          RowBackground="{StaticResource DarkestGrey}" 
+                          Foreground="{StaticResource MainForeground}"/>
+            </Grid>
         </StackPanel>
     </Grid>
 </UserControl>
