@@ -62,6 +62,16 @@ Console.WriteLine(
 Console.WriteLine("Do you want see the real response? (Y/N):");
 var response = Console.ReadLine();
 if (response?.ToLower() == "y" || response?.ToLower() == "yes") Console.WriteLine(process.StandardOutput.ReadToEnd());
+
+Console.WriteLine("Do you want see the stats? (Y/N):");
+var statsResponse = Console.ReadLine();
+if (statsResponse?.ToLower() == "y")
+{
+    System.Console.WriteLine("Loading Stats....");
+    foreach(var item in  JsonSerializer.Deserialize<Stats[]>(stats().Result)){
+        System.Console.WriteLine(item.category+": "+item.content+"\n"+item.createdAt+"");
+    }
+}
 return;
 
 Task<string> Error() =>
@@ -70,4 +80,8 @@ Task<string> Error() =>
 
 Task<string> Success() =>
     client.GetAsync($"http://booboobanisher.eba-btqxcacw.eu-west-1.elasticbeanstalk.com/Message/success?userID={user?.userID}")
+        .ContinueWith(previous => previous.Result.Content.ReadAsStringAsync().Result);
+
+Task<string> stats() =>
+    client.GetAsync($"http://booboobanisher.eba-btqxcacw.eu-west-1.elasticbeanstalk.com/session/stats?userid={user?.userID}")
         .ContinueWith(previous => previous.Result.Content.ReadAsStringAsync().Result);
