@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BBB_Desktop")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a6ab7fa100d6d1fbd6e1b04bae05841d0ab91b3b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bd2932ba8e5437f4fe3024df8c48aed9260df805")]
 [assembly: System.Reflection.AssemblyProductAttribute("BBB_Desktop")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BBB_Desktop")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

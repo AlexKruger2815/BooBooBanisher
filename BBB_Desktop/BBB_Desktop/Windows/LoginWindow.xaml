@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BBB_Desktop.Windows"
         mc:Ignorable="d"
-        Title="Login" Height="300" Width="400" FontFamily="{StaticResource Poppins}">
+        Title="Login" Height="300" Width="400" FontFamily="{StaticResource Poppins}"
+        WindowStartupLocation="CenterScreen">
     <Grid Background="{StaticResource DarkestGrey}">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Foreground="{StaticResource MainForeground}" 

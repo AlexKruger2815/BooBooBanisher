@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using BBB_Desktop.Data;
 
 namespace BBB_Desktop.Views
@@ -70,16 +71,23 @@ namespace BBB_Desktop.Views
                     0 => "success",
                     _ => "other",
                 };
+                
                 message = BBBDBContext.GetMessageAsync(
                     (int)App.Current.Properties["userID"]!,
                     (string)App.Current.Properties["access_token"]!,
                     messageType
                     ).Result;
+                message = process.ExitCode switch
+                {
+                    1 => "====================COMPILATION ERROR====================\n",
+                    0 => "===================COMPILATION SUCCESS===================\n",
+                    _ => "================SOMETHING ELSE HAPPENED==================\n--Consider viewing the full output for details!\n",
+                } + message;
                 fullOutput = process.StandardOutput.ReadToEnd();
             }
 
             txtOutput.Text = (cbxFullError.IsChecked == true) 
-                ? $"{message}\n\n====================Full Output====================\n{fullOutput}" 
+                ? $"{message}\n\n====================FULL OUTPUT====================\n{fullOutput}" 
                 :  message;
         }
 

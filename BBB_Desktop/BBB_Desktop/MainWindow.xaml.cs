@@ -1,6 +1,8 @@
 ﻿using BBB_Desktop.Data;
 using BBB_Desktop.Models;
+using System.Diagnostics;
 using System.Windows;
+using System.Windows.Navigation;
 
 namespace BBB_Desktop
 {
@@ -18,7 +20,19 @@ namespace BBB_Desktop
             user = BBBDBContext.GetUserAsync((string)App.Current.Properties["access_token"]!).Result;
             lblUsername.Content = $"Hello, {user.username}!";
             App.Current.Properties["userID"] = user.userID;
-            
+            repoLink.RequestNavigate += Hyperlink_RequestNavigate;
+
         }
+ 
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            var webDirect = new ProcessStartInfo
+            {
+                FileName = $"{e.Uri.ToString()}",
+                UseShellExecute = true
+            };
+            Process.Start(webDirect);
+        }
+        
     }
 }

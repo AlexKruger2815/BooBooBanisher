@@ -9,10 +9,10 @@
              d:DesignHeight="450" d:DesignWidth="800" FontFamily="{StaticResource Poppins}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="325"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Margin="20" VerticalAlignment="Center">
+        <StackPanel Grid.Column="0" Margin="15 10" VerticalAlignment="Center">
             <Border Background="{StaticResource MediumGrey}"  
                     Margin="20 10">
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -51,7 +51,7 @@
             </Border>
         </StackPanel>
         <StackPanel Grid.Column="1">
-            <StackPanel Orientation="Horizontal" Margin="10">
+            <StackPanel Orientation="Horizontal" Margin="25 25 10 10">
                 <TextBlock Text="From:" Foreground="Black" VerticalAlignment="Center" FontSize="18" />
                 <DatePicker x:Name="StartDate" FontSize="16" Margin="10 10 40 10" Focusable="False"
                             DisplayDateEnd="{Binding ElementName=EndDate,Path=SelectedDate}"/>
@@ -69,7 +69,13 @@
                           FontSize="12" MaxColumnWidth="400" 
                           HorizontalAlignment="Center" 
                           RowBackground="{StaticResource DarkestGrey}" 
-                          Foreground="{StaticResource MainForeground}"/>
+                          Foreground="{StaticResource MainForeground}">
+                    <DataGrid.Resources>
+                        <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="{StaticResource MediumGrey}" />
+                        </Style>
+                    </DataGrid.Resources>
+                </DataGrid>
             </Grid>
         </StackPanel>
     </Grid>
