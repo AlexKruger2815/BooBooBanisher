@@ -70,8 +70,8 @@ If the .exe is present,
 
 ### Running the App
 
-You can [https://github.com/AlexKruger2815/BooBooBanisher/releases/download/CLI/BBB_Desktop.zip](download) the CLI version of this application and view the source code on the 
-[https://github.com/AlexKruger2815/BooBooBanisher](GitHub)
+You can [download](https://github.com/AlexKruger2815/BooBooBanisher/releases/download/CLI/BBB_Desktop.zip) the CLI version of this application and view the source code on the 
+[GitHub](https://github.com/AlexKruger2815/BooBooBanisher)
 
 Hi hello! We're here to help you test whether your .NET solution compiles whithout
 the heartbreak of seeing the full console output without your consent.
