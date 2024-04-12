@@ -56,12 +56,34 @@ cd BooBooBanisher
 cd bbb
 dotnet run
 ```
+The AWS API is hosted at [http://booboobanisher.eba-btqxcacw.eu-west-1.elasticbeanstalk.com] http://booboobanisher.eba-btqxcacw.eu-west-1.elasticbeanstalk.com/
 
 ### Running the CLI
 ```bash
 cd BBB_CLI
-dotnet run
+dotnet run [*.sln path]
 ```
+If the .exe is present, 
+```bash
+./BBB_CLI.exe [*.sln path]
+```
+
+### Running the App
+
+You can [https://github.com/AlexKruger2815/BooBooBanisher/releases/download/CLI/BBB_Desktop.zip]download the CLI version of this application and view the source code on the 
+[https://github.com/AlexKruger2815/BooBooBanisher]GitHub
+
+Hi hello! We're here to help you test whether your .NET solution compiles whithout
+the heartbreak of seeing the full console output without your consent.
+So, how does this work? In the "Inspect File" tab, you simply click the "Upload File"
+button and you'll be able to upload your solution. Then, you'll be shown a delightful, 
+booboo-free message indicating whether or not your code was able to compile! You can 
+check the "View Full Output" checkbox if you want to see the full console output 
+underneath the message. Just make sure you're emotionally prepared first!
+In the "Statistics" tab, you can view your compilation history, as well as a summary
+of how many successful and failed compilations you've had. You can filter the history 
+by selecting the "To" and "From" dates.
+
 
 ## The Banishers
 - Alex Kruger
