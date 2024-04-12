@@ -73,7 +73,8 @@ If the .exe is present,
 You can [download](https://github.com/AlexKruger2815/BooBooBanisher/releases/download/CLI/BBB_Desktop.zip) the CLI version of this application and view the source code on the 
 [GitHub](https://github.com/AlexKruger2815/BooBooBanisher)
 
-*So how do I **physically** use it?*
+*So how do I **physically** use it?*  
+
 Hi hello! We're here to help you test whether your .NET solution compiles whithout
 the heartbreak of seeing the full console output without your consent.
 So, how does this work? In the "Inspect File" tab, you simply click the "Upload File"
