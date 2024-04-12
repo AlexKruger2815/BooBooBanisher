@@ -75,11 +75,11 @@ You can [download](https://github.com/AlexKruger2815/BooBooBanisher/releases/dow
 
 *So how do I **physically** use it?*  
 
-Hi hello! We're here to help you test whether your .NET solution compiles whithout
+Hi hello! We're here to help you test whether your .NET solution compiles without
 the heartbreak of seeing the full console output without your consent.
 So, how does this work? In the "Inspect File" tab, you simply click the "Upload File"
 button and you'll be able to upload your solution. Then, you'll be shown a delightful, 
-booboo-free message indicating whether or not your code was able to compile! You can 
+BooBoo-free message indicating whether or not your code was able to compile! You can 
 check the "View Full Output" checkbox if you want to see the full console output 
 underneath the message. Just make sure you're emotionally prepared first!
 In the "Statistics" tab, you can view your compilation history, as well as a summary
