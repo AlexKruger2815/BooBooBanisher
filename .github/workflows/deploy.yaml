@@ -37,8 +37,6 @@ jobs:
         dotnet build --configuration Release
         dotnet publish --configuration Release -o ./publish
         zip -r bbb_cli.zip ./publish
-        gh release create CLI
-        gh release upload CLI ./bbb_cli.zip
 
     # - name: Create release
     #   id: create_release
